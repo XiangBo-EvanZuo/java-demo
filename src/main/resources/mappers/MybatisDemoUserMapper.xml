@@ -2,6 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.javademo.mybatis.mapper.MybatisDemoUserMapper">
     <select id="findAll" resultType="com.example.javademo.mybatis.entity.MybatisDemoUser">
-        SELECT * FROM skin
+        SELECT * FROM skin where name like concat('%', #{name}, '%')
+        <if test="maxPrice != null">
+            AND price &lt;= ${maxPrice} AND price &gt;= ${minPrice}
+        </if>
     </select>
 </mapper>
