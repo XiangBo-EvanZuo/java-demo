@@ -18,13 +18,13 @@ package com.example.javademo.mybatis.controller;
 
 import java.util.List;
 
-import com.example.javademo.mybatis.entity.GetListDao;
+import com.example.javademo.mybatis.entity.*;
+import com.example.javademo.mybatis.mapper.SkinDetailMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.javademo.mybatis.entity.MybatisDemoUser;
 import com.example.javademo.mybatis.mapper.MybatisDemoUserMapper;
 
 @RestController
@@ -34,10 +34,40 @@ public class MybatisDemoUserController {
     @Autowired
     private MybatisDemoUserMapper mybatisDemoUserMapper;
 
+    @Autowired
+    private SkinDetailMapper sKinDetailMapper;
+
+
     // http://127.0.0.1:8080/usermybatis/findAll
     @RequestMapping("/findAll")
     public List<MybatisDemoUser> findAll(@RequestBody GetListDao dao) {
         return mybatisDemoUserMapper.findAll(dao);
     }
 
+    @RequestMapping("/findListItem")
+    public MybatisDemoUser findListItem(@RequestBody GetListItemDao dao) {
+        return mybatisDemoUserMapper.findListItem(dao);
+    }
+
+    @RequestMapping("/findDetail")
+    public SkinDetailDao findDetail(@RequestBody GetDetailDao dao) {
+        return sKinDetailMapper.findSkinDetailDaoById(dao.getId());
+    }
+
+    @RequestMapping("/findSkinDetail")
+    public DetailItem findSkinDetail(@RequestBody GetListItemDao dao) {
+        MybatisDemoUser findListItemRes = findListItem(dao);
+        Long resId = findListItemRes.getId();
+        GetDetailDao vo = new GetDetailDao();
+        vo.setId(resId);
+        SkinDetailDao detailItemRes = findDetail(vo);
+        DetailItem detailItemVo = new DetailItem();
+
+        detailItemVo.setDesc(detailItemRes.getDesc());
+        detailItemVo.setId(findListItemRes.getId());
+        detailItemVo.setPrice(findListItemRes.getPrice());
+        detailItemVo.setImg(findListItemRes.getImg());
+        detailItemVo.setName(findListItemRes.getName());
+        return detailItemVo;
+    }
 }

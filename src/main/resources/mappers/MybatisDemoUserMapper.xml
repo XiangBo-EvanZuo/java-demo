@@ -7,4 +7,7 @@
             AND price &lt;= ${maxPrice} AND price &gt;= ${minPrice}
         </if>
     </select>
+    <select id="findListItem" resultType="com.example.javademo.mybatis.entity.MybatisDemoUser">
+        SELECT * FROM skin where detailId=#{detailId}
+    </select>
 </mapper>
