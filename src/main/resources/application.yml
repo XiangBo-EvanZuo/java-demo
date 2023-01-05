@@ -1,0 +1,9 @@
+spring:
+  port: 8080
+  name: java-demo
+  datasource:
+    name: defaultDataSource
+    url: jdbc:mysql://localhost:3306/skin
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
