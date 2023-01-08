@@ -14,24 +14,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.javademo.mybatis.mapper;
+package com.example.javademo.mybatis.entity;
+import lombok.Data;
+import java.math.BigDecimal;
 
-import java.util.List;
-
-import com.example.javademo.mybatis.entity.GetListDao;
-import com.example.javademo.mybatis.entity.GetListItemDao;
-import com.example.javademo.mybatis.entity.MybatisDemoUser;
-import org.apache.ibatis.annotations.Mapper;
-
-/**
- * 指定这是一个操作数据库的mapper
- *
- * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
- */
-
-@Mapper
-public interface MybatisDemoUserMapper {
-    List<MybatisDemoUser> findAll(GetListDao da0);
-
-    MybatisDemoUser findListItem(GetListItemDao da0);
+@Data
+public class Skin {
+    private Long id;
+    private String name;
+    private BigDecimal price;
+    private String img;
 }

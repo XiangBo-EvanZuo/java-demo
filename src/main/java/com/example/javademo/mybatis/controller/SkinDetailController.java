@@ -16,54 +16,47 @@
  */
 package com.example.javademo.mybatis.controller;
 
-import java.util.List;
-
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.javademo.mybatis.entity.*;
-import com.example.javademo.mybatis.mapper.SkinDetailMapper;
+import com.example.javademo.mybatis.service.impl.SkinDetailServiceImpl;
+import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.javademo.mybatis.mapper.MybatisDemoUserMapper;
-
 @RestController
-@RequestMapping("/usermybatis")
-public class MybatisDemoUserController {
+@RequestMapping("/skin-detail")
+public class SkinDetailController {
+    @Autowired
+    private SkinServiceImpl skinService;
 
     @Autowired
-    private MybatisDemoUserMapper mybatisDemoUserMapper;
+    private SkinDetailServiceImpl skinDetailService;
 
-    @Autowired
-    private SkinDetailMapper sKinDetailMapper;
-
-
-    // http://127.0.0.1:8080/usermybatis/findAll
-    @RequestMapping("/findAll")
-    public List<MybatisDemoUser> findAll(@RequestBody GetListDao dao) {
-        return mybatisDemoUserMapper.findAll(dao);
-    }
-
-    @RequestMapping("/findListItem")
-    public MybatisDemoUser findListItem(@RequestBody GetListItemDao dao) {
-        return mybatisDemoUserMapper.findListItem(dao);
+    public Skin findListItem(GetListItemDao dao) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", dao.getId());
+        return skinService.getOne(queryWrapper);
     }
 
     @RequestMapping("/findDetail")
-    public SkinDetailDao findDetail(@RequestBody GetDetailDao dao) {
-        return sKinDetailMapper.findSkinDetailDaoById(dao.getId());
+    public SkinDetail findDetail(@RequestBody QueryDetailDao dao) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", dao.getId());
+        return skinDetailService.getOne(queryWrapper);
     }
 
     @RequestMapping("/findSkinDetail")
     public DetailItem findSkinDetail(@RequestBody GetListItemDao dao) {
-        MybatisDemoUser findListItemRes = findListItem(dao);
+        Skin findListItemRes = findListItem(dao);
         Long resId = findListItemRes.getId();
-        GetDetailDao vo = new GetDetailDao();
+        QueryDetailDao vo = new QueryDetailDao();
         vo.setId(resId);
-        SkinDetailDao detailItemRes = findDetail(vo);
+        SkinDetail detailItemRes = findDetail(vo);
         DetailItem detailItemVo = new DetailItem();
 
-        detailItemVo.setDesc(detailItemRes.getDesc());
+        detailItemVo.setDesc(detailItemRes.getDescription());
         detailItemVo.setId(findListItemRes.getId());
         detailItemVo.setPrice(findListItemRes.getPrice());
         detailItemVo.setImg(findListItemRes.getImg());

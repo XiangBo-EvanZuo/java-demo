@@ -3,6 +3,7 @@ package com.example.javademo.mybatis.entity;
 import lombok.Data;
 
 @Data
-public class GetListItemDao {
-    Long id;
+public class LoginVO {
+    Boolean result;
+    String message;
 }

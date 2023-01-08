@@ -1,5 +1,7 @@
+server:
+  port: 8082
+
 spring:
-  port: 8080
   name: java-demo
   datasource:
     name: defaultDataSource

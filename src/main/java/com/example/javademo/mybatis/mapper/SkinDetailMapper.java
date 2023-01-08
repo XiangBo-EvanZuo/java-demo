@@ -1,11 +1,7 @@
 package com.example.javademo.mybatis.mapper;
 
-import com.example.javademo.mybatis.entity.SkinDetailDao;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.javademo.mybatis.entity.SkinDetail;
 
-@Mapper
-public interface SkinDetailMapper {
-    @Select("select * from skin_detail where id=#{v}")
-    public SkinDetailDao findSkinDetailDaoById(Long id);
+public interface SkinDetailMapper extends BaseMapper<SkinDetail> {
 }

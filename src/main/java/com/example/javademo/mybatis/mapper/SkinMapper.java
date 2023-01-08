@@ -14,16 +14,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.javademo.mybatis.entity;
+package com.example.javademo.mybatis.mapper;
 
-import lombok.Data;
+import java.util.List;
 
-import java.math.BigDecimal;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.javademo.mybatis.entity.QuerySkinDao;
+import com.example.javademo.mybatis.entity.GetListItemDao;
+import com.example.javademo.mybatis.entity.Skin;
 
-@Data
-public class MybatisDemoUser {
-    private Long id;
-    private String name;
-    private BigDecimal price;
-    private String img;
+/**
+ * 指定这是一个操作数据库的mapper
+ *
+ * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
+ */
+
+public interface SkinMapper extends BaseMapper<Skin> {
+    List<Skin> findAll(QuerySkinDao da0);
+
+    Skin findListItem(GetListItemDao da0);
 }

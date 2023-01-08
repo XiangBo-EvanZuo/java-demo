@@ -15,12 +15,12 @@ package com.example.javademo.mybatis.entity;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.math.BigDecimal;
-
 @Data
-public class SkinDetailDao {
+@TableName("skin_detail")
+public class SkinDetail {
     private Long id;
-    private String desc;
+    private String description;
 }
