@@ -1,5 +1,7 @@
 package com.example.javademo.mybatis.service.impl;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.javademo.mybatis.entity.GetListItemDao;
 import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.mapper.SkinMapper;
 import com.example.javademo.mybatis.service.ISkinService;
@@ -15,4 +17,9 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class SkinServiceImpl extends ServiceImpl<SkinMapper, Skin> implements ISkinService {
+    public Skin findOneItem(SkinServiceImpl service, GetListItemDao dao) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("id", dao.getId());
+        return service.getOne(queryWrapper);
+    }
 }

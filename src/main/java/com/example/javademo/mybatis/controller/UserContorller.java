@@ -20,7 +20,7 @@ public class UserContorller {
     @RequestMapping("/login")
     public LoginVO findListItem(@RequestBody User user) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq( StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
+        queryWrapper.eq(StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
         User res = userService.getOne(queryWrapper);
         String resJSON = JSON.toJSONString(res, true);
         System.out.println(resJSON);

@@ -22,6 +22,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.javademo.mybatis.entity.*;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,8 +36,18 @@ public class SkinController {
 
     @RequestMapping("/findAll")
     public List<Skin> findAll(@RequestBody QuerySkinDao dao) {
-        // @xiangbo todo 增加query
+        System.out.println(dao.toString());
         QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like("name", dao.getName());
+        if (dao.getMaxPrice() != null) {
+            queryWrapper.le("price", dao.getMaxPrice());
+            queryWrapper.ge("price", dao.getMinPrice());
+        }
         return skinService.list(queryWrapper);
+    }
+
+    @RequestMapping("/findOne")
+    public Skin findListItem(@RequestBody GetListItemDao dao) {
+        return skinService.findOneItem(skinService, dao);
     }
 }

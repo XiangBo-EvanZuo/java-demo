@@ -34,12 +34,6 @@ public class SkinDetailController {
     @Autowired
     private SkinDetailServiceImpl skinDetailService;
 
-    public Skin findListItem(GetListItemDao dao) {
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("id", dao.getId());
-        return skinService.getOne(queryWrapper);
-    }
-
     @RequestMapping("/findDetail")
     public SkinDetail findDetail(@RequestBody QueryDetailDao dao) {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -49,7 +43,7 @@ public class SkinDetailController {
 
     @RequestMapping("/findSkinDetail")
     public DetailItem findSkinDetail(@RequestBody GetListItemDao dao) {
-        Skin findListItemRes = findListItem(dao);
+        Skin findListItemRes = skinService.findOneItem(skinService, dao);
         Long resId = findListItemRes.getId();
         QueryDetailDao vo = new QueryDetailDao();
         vo.setId(resId);
