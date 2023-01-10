@@ -20,7 +20,7 @@ public class UserContorller {
     @RequestMapping("/login")
     public LoginVO findListItem(@RequestBody User user) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq(StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
+        queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
         User res = userService.getOne(queryWrapper);
         String resJSON = JSON.toJSONString(res, true);
         System.out.println(resJSON);
@@ -29,6 +29,10 @@ public class UserContorller {
             loginRes.setResult(false);
             loginRes.setMessage("no mobile");
         } else {
+            System.out.println("res:" + res.getPwd());
+            System.out.println("user:" + user.getPwd());
+            System.out.println("getMobile:" + user.getMobile());
+            System.out.println("isEmpty:" + StringUtils.isEmpty(user.getMobile()));
             if (res.getPwd().equals(user.getPwd())) {
                 loginRes.setResult(true);
                 loginRes.setMessage("登陆成功!");
