@@ -19,10 +19,12 @@ package com.example.javademo.mybatis.controller;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.javademo.mybatis.common.Errors.PassWordError;
+import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.entity.*;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,19 +37,22 @@ public class SkinController {
     private SkinServiceImpl skinService;
 
     @RequestMapping("/findAll")
-    public List<Skin> findAll(@RequestBody QuerySkinDao dao) {
-        System.out.println(dao.toString());
+    public ResultData<List<Skin>> findAll(@Validated @RequestBody QuerySkinDao dao) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like("name", dao.getName());
         if (dao.getMaxPrice() != null) {
             queryWrapper.le("price", dao.getMaxPrice());
             queryWrapper.ge("price", dao.getMinPrice());
         }
-        return skinService.list(queryWrapper);
+        return ResultData.success(skinService.list(queryWrapper));
     }
 
     @RequestMapping("/findOne")
     public Skin findListItem(@RequestBody GetListItemDao dao) {
         return skinService.findOneItem(skinService, dao);
+    }
+    @RequestMapping("/error")
+    public Skin error() throws PassWordError {
+       throw new PassWordError();
     }
 }

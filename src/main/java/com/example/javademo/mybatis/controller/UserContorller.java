@@ -2,6 +2,7 @@ package com.example.javademo.mybatis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.javademo.mybatis.common.Errors.PassWordError;
 import com.example.javademo.mybatis.entity.LoginVO;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
@@ -18,7 +19,7 @@ public class UserContorller {
     UserServiceImpl userService;
 
     @RequestMapping("/login")
-    public LoginVO findListItem(@RequestBody User user) {
+    public LoginVO findListItem(@RequestBody User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
         User res = userService.getOne(queryWrapper);
@@ -26,8 +27,7 @@ public class UserContorller {
         System.out.println(resJSON);
         LoginVO loginRes = new LoginVO();
         if (res == null) {
-            loginRes.setResult(false);
-            loginRes.setMessage("no mobile");
+            throw new PassWordError();
         } else {
             System.out.println("res:" + res.getPwd());
             System.out.println("user:" + user.getPwd());
