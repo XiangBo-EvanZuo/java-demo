@@ -37,7 +37,7 @@ public class SkinController {
     private SkinServiceImpl skinService;
 
     @RequestMapping("/findAll")
-    public ResultData<List<Skin>> findAll(@Validated @RequestBody QuerySkinDao dao) {
+    public ResultData<List<Skin>> findAll(@RequestBody @Validated QuerySkinDao dao) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.like("name", dao.getName());
         if (dao.getMaxPrice() != null) {
