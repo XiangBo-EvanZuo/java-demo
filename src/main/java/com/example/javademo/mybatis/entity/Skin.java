@@ -15,13 +15,12 @@
  * limitations under the License.
  */
 package com.example.javademo.mybatis.entity;
-
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class MybatisDemoUser {
+public class Skin {
     private Long id;
     private String name;
     private BigDecimal price;
