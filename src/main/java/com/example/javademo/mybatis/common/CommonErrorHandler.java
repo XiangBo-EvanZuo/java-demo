@@ -19,6 +19,7 @@ public class CommonErrorHandler {
     }
     @ExceptionHandler({RuntimeException.class})
     public ResultData otherErrors(RuntimeException error) {
+        System.out.println(error.toString());
         return ResultData.fail(ReturnCode.UNSUPPORTED_GRANT_TYPE.getCode(), error.getMessage());
     }
 

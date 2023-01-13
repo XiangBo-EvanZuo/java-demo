@@ -16,6 +16,7 @@
  */
 package com.example.javademo.mybatis.entity;
 import lombok.Data;
+
 import java.math.BigDecimal;
 
 @Data

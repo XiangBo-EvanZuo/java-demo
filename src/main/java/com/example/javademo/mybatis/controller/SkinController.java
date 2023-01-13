@@ -24,6 +24,7 @@ import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.entity.*;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class SkinController {
     @RequestMapping("/findAll")
     public ResultData<List<Skin>> findAll(@RequestBody @Validated QuerySkinDao dao) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.like("name", dao.getName());
+        queryWrapper.like(!StringUtils.isEmpty(dao.getName()),"name", dao.getName());
         if (dao.getMaxPrice() != null) {
             queryWrapper.le("price", dao.getMaxPrice());
             queryWrapper.ge("price", dao.getMinPrice());
