@@ -16,14 +16,17 @@
  */
 package com.example.javademo.mybatis.config;
 
-import org.mybatis.spring.annotation.MapperScan;
+import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
-/**
- * 使用MapperScan批量扫描所有的Mapper接口
- *
- * @author <a href="mailto:chenxilzx1@gmail.com">theonefx</a>
- */
-@MapperScan("com.example.javademo.mybatis")
-public class MybatisDemoConfig {
-
+@Configuration
+public class Pagination {
+    @Bean
+    public MybatisPlusInterceptor interceptor () {
+        MybatisPlusInterceptor mybatisPlusInterceptor = new MybatisPlusInterceptor();
+        mybatisPlusInterceptor.addInnerInterceptor(new PaginationInnerInterceptor());
+        return mybatisPlusInterceptor;
+    }
 }

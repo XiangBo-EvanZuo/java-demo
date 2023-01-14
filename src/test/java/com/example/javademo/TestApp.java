@@ -1,9 +1,15 @@
 package com.example.javademo;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.entity.User;
+import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +22,8 @@ import java.util.List;
 public class TestApp {
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    SkinServiceImpl skinService;
 
     @Test
     public void test() {
@@ -43,5 +51,15 @@ public class TestApp {
                 .execute();
     }
 
-
+    @Test
+    public void testPage() {
+        IPage page = new Page(1, 2);
+        LambdaQueryWrapper<Skin> lambdaQueryChainWrapper = new LambdaQueryWrapper();
+        lambdaQueryChainWrapper.ge(false, Skin::getPrice, 100);
+        skinService.page(page, lambdaQueryChainWrapper);
+        System.out.println(page.getPages());
+        System.out.println(page.getCurrent());
+        System.out.println(page.getRecords());
+        System.out.println(page.getTotal());
+    }
 }
