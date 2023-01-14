@@ -1,8 +1,6 @@
-server:
-  port: 8082
-
 spring:
   name: java-demo
+  profiles: pro
   datasource:
     name: defaultDataSource
     url: jdbc:mysql://localhost:3306/skin
@@ -11,10 +9,5 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   main:
     banner-mode: off
-
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
-  global-config:
-    banner: false
+server:
+  port: 8083
