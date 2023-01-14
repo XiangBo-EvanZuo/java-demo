@@ -1,6 +1,7 @@
 package com.example.javademo;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -17,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class TestApp {
@@ -55,11 +57,20 @@ public class TestApp {
     public void testPage() {
         IPage page = new Page(1, 2);
         LambdaQueryWrapper<Skin> lambdaQueryChainWrapper = new LambdaQueryWrapper();
+        lambdaQueryChainWrapper.select(Skin::getName, Skin::getPrice);
         lambdaQueryChainWrapper.ge(false, Skin::getPrice, 100);
         skinService.page(page, lambdaQueryChainWrapper);
         System.out.println(page.getPages());
         System.out.println(page.getCurrent());
         System.out.println(page.getRecords());
         System.out.println(page.getTotal());
+    }
+    @Test
+    public void testShadowQuery() {
+        QueryWrapper queryWrapper = new QueryWrapper<Skin>();
+        queryWrapper.select("count(*) as count, name");
+        queryWrapper.groupBy("name");
+        List<Map<String, Skin>> res = skinService.listMaps(queryWrapper);
+        System.out.println(res.toString());
     }
 }
