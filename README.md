@@ -18,9 +18,14 @@
 
 # todos
 - Bear jwt登陆态
+# Done
 - 分页(Done)
-- 多环境部署（Maven | config）
+- 多环境部署（Maven | config）(Done - Maven没有配置)
 - 去除banner-Spring MP（Done）
+- id类型（UUID、输入、正常自增）设置
+- table表名称统一前缀设置prefix
+- 逻辑删除
+- 乐观锁-拦截器
 
 # 开发效率
 - Yaml的提示

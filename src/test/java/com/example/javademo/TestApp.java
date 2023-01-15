@@ -73,4 +73,21 @@ public class TestApp {
         List<Map<String, Skin>> res = skinService.listMaps(queryWrapper);
         System.out.println(res.toString());
     }
+//    @Test
+    public void testLogicDelete() {
+//        userService.removeById(2L);
+    }
+    @Test
+    public void testOptimiseLockInterceptor() {
+        User tageOperatetUser1 = userService.getById(2L);
+        User tageOperatetUser2 = userService.getById(2L);
+        // user1
+        tageOperatetUser1.setUsername("111-new");
+        userService.updateById(tageOperatetUser1);
+        // user2
+        tageOperatetUser2.setUsername("222-new");
+        userService.updateById(tageOperatetUser2);
+        // 两个人拿到同一个vmersion
+    }
+
 }
