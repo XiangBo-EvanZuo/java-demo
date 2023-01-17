@@ -6,12 +6,22 @@ import com.baomidou.mybatisplus.annotation.Version;
 import com.example.javademo.mybatis.common.Validators.CustomValidators.CaseUpper;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Update;
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
+import java.io.Serializable;
 
-@Data
-public class User {
+/**
+ * 管理员用户
+ */
+@Getter
+@Setter
+@NoArgsConstructor
+@JsonIgnoreProperties(allowSetters = true, value = {"pwd"})
+public class User implements Serializable {
     Long id;
     @CaseUpper(message = "username必须大写", groups = {Save.class})
     String username;
