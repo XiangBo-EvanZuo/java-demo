@@ -11,3 +11,6 @@ spring:
     banner-mode: off
 server:
   port: 8082
+  servlet:
+    session:
+      timeout: 60 # session超时时间为60秒
