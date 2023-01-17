@@ -17,7 +17,10 @@
   - 不存在的字段筛选，原生Sql，添加BaseMapper的Imp
 
 # todos
+- 目录结构
+- log
 - Bear jwt登陆态
+- 
 # Done
 - 分页(Done)
 - 多环境部署（Maven | config）(Done - Maven没有配置)

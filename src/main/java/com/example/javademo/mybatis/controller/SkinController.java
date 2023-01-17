@@ -17,7 +17,7 @@
 package com.example.javademo.mybatis.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.javademo.mybatis.common.Errors.PassWordError;
+import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.entity.GetListItemDao;
 import com.example.javademo.mybatis.entity.QuerySkinDao;

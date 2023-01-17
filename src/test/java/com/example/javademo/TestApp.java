@@ -3,11 +3,11 @@ package com.example.javademo;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
@@ -90,4 +90,13 @@ public class TestApp {
         // 两个人拿到同一个vmersion
     }
 
+    @Test
+    public void testError() throws PassWordError {
+        try {
+            throw new PassWordError();
+
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+        }
+    }
 }

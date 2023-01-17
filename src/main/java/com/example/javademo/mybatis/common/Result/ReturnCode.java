@@ -38,6 +38,7 @@ public enum ReturnCode {
      * access_denied
      **/
     RC401(401, "匿名用户访问无权限资源时的异常"),
+    NotLogin(401, "匿名用户访问无权限资源时的异常"),
     /**
      * 服务异常
      **/
@@ -47,6 +48,7 @@ public enum ReturnCode {
     ACCESS_DENIED(2003, "没有权限访问该资源"),
     CLIENT_AUTHENTICATION_FAILED(1001, "客户端认证失败"),
     USERNAME_OR_PASSWORD_ERROR(1002, "用户名或密码错误"),
+    NORMAL_ERROR_ENUM(666, "不支持的认证模式"),
     UNSUPPORTED_GRANT_TYPE(1003, "不支持的认证模式");
 
     /**

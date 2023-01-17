@@ -1,9 +1,9 @@
 package com.example.javademo.mybatis.common;
 
-import com.example.javademo.mybatis.common.Errors.PassWordError;
+import com.example.javademo.mybatis.common.Exceptions.NotLogin;
+import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.common.Result.ReturnCode;
-import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -16,6 +16,10 @@ public class CommonErrorHandler {
     @ExceptionHandler({PassWordError.class})
     public ResultData passwordException() {
         return ResultData.fail(ReturnCode.PassWordError.getCode(), ReturnCode.PassWordError.getMessage());
+    }
+    @ExceptionHandler({NotLogin.class})
+    public ResultData NotLogin() {
+        return ResultData.fail(ReturnCode.NotLogin.getCode(), ReturnCode.NotLogin.getMessage());
     }
     @ExceptionHandler({RuntimeException.class})
     public ResultData otherErrors(RuntimeException error) {
