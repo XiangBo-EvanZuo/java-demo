@@ -6,6 +6,7 @@
 - 参数验证
 - 统一拦截Request
 - 分组、自定义拦截器
+
 ## 拦截器
 - 统一返回固定格式Result (Done)
 - 统一错误拦截 (Done)
@@ -19,7 +20,7 @@
 # todos
 - 目录结构
 - log
-- Bear jwt登陆态
+- Bear jwt登陆态 （Session Done）
 - 
 # Done
 - 分页(Done)
@@ -29,6 +30,9 @@
 - table表名称统一前缀设置prefix
 - 逻辑删除
 - 乐观锁-拦截器
+- session 统一拦截session
+- 序列化与反序列化的字段过滤
+- 
 
 # 开发效率
 - Yaml的提示

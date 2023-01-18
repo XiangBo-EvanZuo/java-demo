@@ -20,6 +20,7 @@ public class RequestInterceportor implements HandlerInterceptor {
         if(session != null){
             currentUser = (User)session.getAttribute("user");
         }
+        System.out.println(currentUser);
         if(currentUser == null){
             // 说明用户未登录
             System.out.println("not login");

@@ -18,6 +18,10 @@ public class WebConfig implements WebMvcConfigurer {
         // 可以添加多个拦截器，先添加的拦截器，先被应用
         registry.addInterceptor(myInterceptor)
                 .addPathPatterns("/**") // 应用到所有 URL 上
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns(new String[]{
+                        "/user/login",
+                        "/user/logout",
+                        "/user/register",
+                });
     }
 }

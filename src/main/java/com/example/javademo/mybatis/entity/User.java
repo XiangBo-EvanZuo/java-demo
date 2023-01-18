@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Required;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -28,6 +29,7 @@ public class User implements Serializable {
     @NotEmpty(message = "not empty")
     String mobile;
     @CaseUpper(message = "pwd必须大写", groups = {Update.class})
+    @NotEmpty(message = "notEmpty", groups = Save.class)
     String pwd;
     // 全局配置
 //    @TableLogic(value = "0", delval = "1")
@@ -36,5 +38,7 @@ public class User implements Serializable {
     Integer notExistField;
     @Version
     Integer version;
+
+    String avatarUrl;
 }
 

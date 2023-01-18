@@ -1,6 +1,7 @@
 package com.example.javademo.mybatis.common;
-
+import com.example.javademo.mybatis.common.Exceptions.DuplicatedUser;
 import com.example.javademo.mybatis.common.Exceptions.NotLogin;
+import com.example.javademo.mybatis.common.Exceptions.NotMobile;
 import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.common.Result.ReturnCode;
@@ -16,6 +17,14 @@ public class CommonErrorHandler {
     @ExceptionHandler({PassWordError.class})
     public ResultData passwordException() {
         return ResultData.fail(ReturnCode.PassWordError.getCode(), ReturnCode.PassWordError.getMessage());
+    }
+    @ExceptionHandler({DuplicatedUser.class})
+    public ResultData DuplicatedUser() {
+        return ResultData.fail(ReturnCode.DuplicatedUser.getCode(), ReturnCode.DuplicatedUser.getMessage());
+    }
+    @ExceptionHandler({NotMobile.class})
+    public ResultData NotMobile() {
+        return ResultData.fail(ReturnCode.NotMobile.getCode(), ReturnCode.NotMobile.getMessage());
     }
     @ExceptionHandler({NotLogin.class})
     public ResultData NotLogin() {
@@ -35,6 +44,6 @@ public class CommonErrorHandler {
     public ResultData argumentExceptionHandler(MethodArgumentNotValidException exception) {
         String message = exception.getBindingResult().getFieldError().getDefaultMessage();
         System.out.println("发生参数异常:{}" + message);
-        return ResultData.fail(ReturnCode.CLIENT_AUTHENTICATION_FAILED.getCode(), message);
+        return ResultData.fail(ReturnCode.ValidateParams.getCode(), message);
     }
 }

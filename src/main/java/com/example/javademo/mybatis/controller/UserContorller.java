@@ -2,10 +2,7 @@ package com.example.javademo.mybatis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.example.javademo.mybatis.common.Exceptions.NormalError;
-import com.example.javademo.mybatis.common.Exceptions.NotLogin;
-import com.example.javademo.mybatis.common.Exceptions.PassWordError;
-import com.example.javademo.mybatis.common.Exceptions.PassWordErrorParent;
+import com.example.javademo.mybatis.common.Exceptions.*;
 import com.example.javademo.mybatis.entity.LoginVO;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
 import com.example.javademo.mybatis.entity.User;
@@ -32,7 +29,7 @@ public class UserContorller {
         System.out.println(resJSON);
         LoginVO loginRes = new LoginVO();
         if (res == null) {
-            throw new PassWordErrorParent();
+            throw new NotMobile();
         } else {
             System.out.println("res:" + res.getPwd());
             System.out.println("user:" + user.getPwd());
@@ -41,6 +38,7 @@ public class UserContorller {
             if (res.getPwd().equals(user.getPwd())) {
                 loginRes.setResult(true);
                 loginRes.setMessage("登陆成功!");
+                loginRes.setData(res);
             } else {
                 throw new PassWordErrorParent();
             }
@@ -49,28 +47,37 @@ public class UserContorller {
         request.getSession().setAttribute("user", res);
         return loginRes;
     }
+    @RequestMapping("/logout")
+    public LoginVO logout(HttpServletRequest request) throws PassWordError {
+        User attribute = (User) request.getSession().getAttribute("user");
+        if (attribute != null) {
+            request.getSession().removeAttribute("user");
+
+        }
+        LoginVO vo = new LoginVO();
+        vo.setResult(true);
+        vo.setMessage("logout");
+        return vo;
+    }
 
     @RequestMapping("error")
     public void errorLogin () throws NormalError {
         throw new NormalError();
     }
 
-    @RequestMapping("get")
-    public User get(HttpServletRequest request) {
-
-        //这里要加入一个很重要的逻辑 判断当前session是否有内容,如果没有内容
-        //则说明未登录
-        User attribute = (User) request.getSession().getAttribute("user");
-        if (attribute == null) {
-            //如果atrribute==null,说明未登录
-            throw new NotLogin();
-        }
+    @RequestMapping("register")
+    public LoginVO get(@RequestBody @Validated({Save.class}) User user) {
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("id", attribute.getId());
+        queryWrapper.eq("mobile", user.getMobile());
         User result = userService.getOne(queryWrapper);
         if (result == null) {
-            throw new NotLogin();
+            userService.save(user);
+            LoginVO loginVO = new LoginVO();
+            loginVO.setResult(true);
+            loginVO.setMessage("register成功!");
+            return loginVO;
+        } else {
+            throw new DuplicatedUser();
         }
-        return result;
     }
 }
