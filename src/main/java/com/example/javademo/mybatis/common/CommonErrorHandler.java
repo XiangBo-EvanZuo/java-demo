@@ -1,7 +1,7 @@
 package com.example.javademo.mybatis.common;
 import com.example.javademo.mybatis.common.Exceptions.DuplicatedUser;
 import com.example.javademo.mybatis.common.Exceptions.NotLogin;
-import com.example.javademo.mybatis.common.Exceptions.NotMobile;
+import com.example.javademo.mybatis.common.Exceptions.NotUser;
 import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.common.Result.ReturnCode;
@@ -22,9 +22,9 @@ public class CommonErrorHandler {
     public ResultData DuplicatedUser() {
         return ResultData.fail(ReturnCode.DuplicatedUser.getCode(), ReturnCode.DuplicatedUser.getMessage());
     }
-    @ExceptionHandler({NotMobile.class})
-    public ResultData NotMobile() {
-        return ResultData.fail(ReturnCode.NotMobile.getCode(), ReturnCode.NotMobile.getMessage());
+    @ExceptionHandler({NotUser.class})
+    public ResultData NotUser() {
+        return ResultData.fail(ReturnCode.NotUser.getCode(), ReturnCode.NotUser.getMessage());
     }
     @ExceptionHandler({NotLogin.class})
     public ResultData NotLogin() {

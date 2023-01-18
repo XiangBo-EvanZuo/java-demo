@@ -7,7 +7,7 @@ public enum ReturnCode {
     DuplicatedUser(2, "用户已注册"),
     ValidateParams(3, "参数校验失败"),
     NORMAL_ERROR_ENUM(5, "不支持的认证模式"),
-    NotMobile(6, "手机不能为空"),
+    NotUser(6, "用户不存在"),
     UNSUPPORTED_GRANT_TYPE(7, "不支持的认证模式");
     private final int code;
     /**

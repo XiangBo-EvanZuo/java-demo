@@ -29,7 +29,8 @@ public class UserContorller {
         System.out.println(resJSON);
         LoginVO loginRes = new LoginVO();
         if (res == null) {
-            throw new NotMobile();
+            // 用户不存在
+            throw new NotUser();
         } else {
             System.out.println("res:" + res.getPwd());
             System.out.println("user:" + user.getPwd());
