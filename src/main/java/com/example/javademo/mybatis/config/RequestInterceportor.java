@@ -25,7 +25,6 @@ public class RequestInterceportor implements HandlerInterceptor {
             // 说明用户未登录
             System.out.println("not login");
             throw new NotLogin();
-//            return false;
         }
         return true;
     }
