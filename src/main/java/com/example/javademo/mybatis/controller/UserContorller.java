@@ -48,12 +48,27 @@ public class UserContorller {
         request.getSession().setAttribute("user", res);
         return loginRes;
     }
+    @RequestMapping("/reset")
+    public LoginVO comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
+        User res = userService.getOne(queryWrapper);
+        LoginVO loginRes = new LoginVO();
+        if (res == null) {
+            // 用户不存在
+            throw new NotUser();
+        } else {
+            res.setPwd(user.getPwd());
+            userService.updateById(res);
+            loginRes.setData(res);
+        }
+        return loginRes;
+    }
     @RequestMapping("/logout")
     public LoginVO logout(HttpServletRequest request) throws PassWordError {
         User attribute = (User) request.getSession().getAttribute("user");
         if (attribute != null) {
             request.getSession().removeAttribute("user");
-
         }
         LoginVO vo = new LoginVO();
         vo.setResult(true);

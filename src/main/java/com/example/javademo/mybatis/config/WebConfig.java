@@ -22,6 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/login",
                         "/user/logout",
                         "/user/register",
+                        "/user/reset",
                 });
     }
 }
