@@ -59,7 +59,7 @@ public class UserContorller {
             throw new NotUser();
         } else {
             res.setPwd(user.getPwd());
-            userService.updateById(res);
+            userService.saveOrUpdate(res);
             loginRes.setData(res);
         }
         return loginRes;
