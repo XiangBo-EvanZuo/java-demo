@@ -6,4 +6,5 @@ import lombok.Data;
 public class LoginVO {
     Boolean result;
     String message;
+    User data;
 }

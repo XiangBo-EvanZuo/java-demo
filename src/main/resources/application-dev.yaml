@@ -1,0 +1,16 @@
+spring:
+  name: java-demo
+  profiles: dev
+  datasource:
+    name: defaultDataSource
+    url: jdbc:mysql://localhost:3306/skin
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  main:
+    banner-mode: off
+server:
+  port: 8082
+  servlet:
+    session:
+      timeout: 60 # session超时时间为60秒

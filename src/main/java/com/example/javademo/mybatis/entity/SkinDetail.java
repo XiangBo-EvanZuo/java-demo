@@ -19,7 +19,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 @Data
-@TableName("skin_detail")
 public class SkinDetail {
     private Long id;
     private String description;

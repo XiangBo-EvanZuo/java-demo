@@ -1,9 +1,16 @@
 package com.example.javademo;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
+import com.example.javademo.mybatis.common.Exceptions.PassWordError;
+import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.entity.User;
+import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @SpringBootTest
 public class TestApp {
     @Autowired
     UserServiceImpl userService;
+    @Autowired
+    SkinServiceImpl skinService;
 
     @Test
     public void test() {
@@ -43,5 +53,50 @@ public class TestApp {
                 .execute();
     }
 
+    @Test
+    public void testPage() {
+        IPage page = new Page(1, 2);
+        LambdaQueryWrapper<Skin> lambdaQueryChainWrapper = new LambdaQueryWrapper();
+        lambdaQueryChainWrapper.select(Skin::getName, Skin::getPrice);
+        lambdaQueryChainWrapper.ge(false, Skin::getPrice, 100);
+        skinService.page(page, lambdaQueryChainWrapper);
+        System.out.println(page.getPages());
+        System.out.println(page.getCurrent());
+        System.out.println(page.getRecords());
+        System.out.println(page.getTotal());
+    }
+    @Test
+    public void testShadowQuery() {
+        QueryWrapper queryWrapper = new QueryWrapper<Skin>();
+        queryWrapper.select("count(*) as count, name");
+        queryWrapper.groupBy("name");
+        List<Map<String, Skin>> res = skinService.listMaps(queryWrapper);
+        System.out.println(res.toString());
+    }
+//    @Test
+    public void testLogicDelete() {
+//        userService.removeById(2L);
+    }
+    @Test
+    public void testOptimiseLockInterceptor() {
+        User tageOperatetUser1 = userService.getById(2L);
+        User tageOperatetUser2 = userService.getById(2L);
+        // user1
+        tageOperatetUser1.setUsername("111-new");
+        userService.updateById(tageOperatetUser1);
+        // user2
+        tageOperatetUser2.setUsername("222-new");
+        userService.updateById(tageOperatetUser2);
+        // 两个人拿到同一个vmersion
+    }
 
+    @Test
+    public void testError() throws PassWordError {
+        try {
+            throw new PassWordError();
+
+        } catch (Exception error) {
+            System.out.println(error.getMessage());
+        }
+    }
 }

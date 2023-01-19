@@ -18,7 +18,7 @@ services:
       # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
       # 映射端口
     ports:
-      - 3306:3306
+      - "3306:3306"
 #    volumes:
 #      # 数据挂载
 #      #- /root/mysql/data/:/var/lib/mysql/
