@@ -25,4 +25,5 @@ public class Skin {
     private String name;
     private BigDecimal price;
     private String img;
+    private String time;
 }

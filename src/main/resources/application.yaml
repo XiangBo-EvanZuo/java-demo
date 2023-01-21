@@ -2,6 +2,11 @@ spring:
   profiles:
     active: dev
 
+logging:
+  config: classpath:logback-spring.xml
+  level:
+    com.example.javademo: trace
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
