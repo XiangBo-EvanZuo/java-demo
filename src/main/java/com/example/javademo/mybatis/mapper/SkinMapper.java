@@ -19,8 +19,8 @@ package com.example.javademo.mybatis.mapper;
 import java.util.List;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.example.javademo.mybatis.entity.QuerySkinDao;
-import com.example.javademo.mybatis.entity.GetListItemDao;
+import com.example.javademo.mybatis.Vo.QuerySkinVo;
+import com.example.javademo.mybatis.Vo.GetListItemVo;
 import com.example.javademo.mybatis.entity.Skin;
 
 /**
@@ -30,7 +30,7 @@ import com.example.javademo.mybatis.entity.Skin;
  */
 
 public interface SkinMapper extends BaseMapper<Skin> {
-    List<Skin> findAll(QuerySkinDao da0);
+    List<Skin> findAll(QuerySkinVo da0);
 
-    Skin findListItem(GetListItemDao da0);
+    Skin findListItem(GetListItemVo da0);
 }

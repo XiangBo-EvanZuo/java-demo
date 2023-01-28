@@ -17,6 +17,9 @@
 package com.example.javademo.mybatis.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.javademo.mybatis.Vo.DetailItemVo;
+import com.example.javademo.mybatis.Vo.GetListItemVo;
+import com.example.javademo.mybatis.Vo.QueryDetailVo;
 import com.example.javademo.mybatis.entity.*;
 import com.example.javademo.mybatis.service.impl.SkinDetailServiceImpl;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
@@ -35,20 +38,20 @@ public class SkinDetailController {
     private SkinDetailServiceImpl skinDetailService;
 
     @RequestMapping("/findDetail")
-    public SkinDetail findDetail(@RequestBody QueryDetailDao dao) {
+    public SkinDetail findDetail(@RequestBody QueryDetailVo dao) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("id", dao.getId());
         return skinDetailService.getOne(queryWrapper);
     }
 
     @RequestMapping("/findSkinDetail")
-    public DetailItem findSkinDetail(@RequestBody GetListItemDao dao) {
+    public DetailItemVo findSkinDetail(@RequestBody GetListItemVo dao) {
         Skin findListItemRes = skinService.findOneItem(skinService, dao);
         Long resId = findListItemRes.getId();
-        QueryDetailDao vo = new QueryDetailDao();
+        QueryDetailVo vo = new QueryDetailVo();
         vo.setId(resId);
         SkinDetail detailItemRes = findDetail(vo);
-        DetailItem detailItemVo = new DetailItem();
+        DetailItemVo detailItemVo = new DetailItemVo();
 
         detailItemVo.setDesc(detailItemRes.getDescription());
         detailItemVo.setId(findListItemRes.getId());

@@ -3,7 +3,7 @@ package com.example.javademo.mybatis.controller;
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.javademo.mybatis.common.Exceptions.*;
-import com.example.javademo.mybatis.entity.LoginVO;
+import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
@@ -22,13 +22,13 @@ public class UserContorller {
     UserServiceImpl userService;
 
     @RequestMapping("/login")
-    public LoginVO findListItem(HttpServletRequest request, @RequestBody @Validated({Save.class}) User user) throws PassWordError {
+    public LoginVo findListItem(HttpServletRequest request, @RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
         User res = userService.getOne(queryWrapper);
         String resJSON = JSON.toJSONString(res, true);
         System.out.println(resJSON);
-        LoginVO loginRes = new LoginVO();
+        LoginVo loginRes = new LoginVo();
         if (res == null) {
             // 用户不存在
             throw new NotUser();
@@ -50,11 +50,11 @@ public class UserContorller {
         return loginRes;
     }
     @RequestMapping("/reset")
-    public LoginVO comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
+    public LoginVo comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
         User res = userService.getOne(queryWrapper);
-        LoginVO loginRes = new LoginVO();
+        LoginVo loginRes = new LoginVo();
         if (res == null) {
             // 用户不存在
             throw new NotUser();
@@ -66,12 +66,12 @@ public class UserContorller {
         return loginRes;
     }
     @RequestMapping("/logout")
-    public LoginVO logout(HttpServletRequest request) throws PassWordError {
+    public LoginVo logout(HttpServletRequest request) throws PassWordError {
         User attribute = (User) request.getSession().getAttribute("user");
         if (attribute != null) {
             request.getSession().removeAttribute("user");
         }
-        LoginVO vo = new LoginVO();
+        LoginVo vo = new LoginVo();
         vo.setResult(true);
         vo.setMessage("logout");
         return vo;
@@ -83,13 +83,13 @@ public class UserContorller {
     }
 
     @RequestMapping("register")
-    public LoginVO get(@RequestBody @Validated({Save.class}) User user) {
+    public LoginVo get(@RequestBody @Validated({Save.class}) User user) {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq("mobile", user.getMobile());
         User result = userService.getOne(queryWrapper);
         if (result == null) {
             userService.save(user);
-            LoginVO loginVO = new LoginVO();
+            LoginVo loginVO = new LoginVo();
             loginVO.setResult(true);
             loginVO.setMessage("register成功!");
             return loginVO;

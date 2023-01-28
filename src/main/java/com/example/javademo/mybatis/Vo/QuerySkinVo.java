@@ -1,11 +1,11 @@
-package com.example.javademo.mybatis.entity;
+package com.example.javademo.mybatis.Vo;
 
 import lombok.Data;
 
 import java.math.BigDecimal;
 
 @Data
-public class QuerySkinDao {
+public class QuerySkinVo {
     String name;
     BigDecimal minPrice;
     BigDecimal maxPrice;
