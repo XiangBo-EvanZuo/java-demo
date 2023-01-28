@@ -21,6 +21,16 @@
 - 目录结构
 - log
 - Bear jwt登陆态 （Session Done）
+
+## 权限管理 rbac
+- spring-security
+- shiro
+## Spring高并发
+## 数据库与事务
+## 微服务
+## 运维系列
+- 打包、部署、监控、日志
+
 - 
 # Done
 - 分页(Done)
