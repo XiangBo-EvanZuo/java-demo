@@ -1,6 +1,14 @@
 version: '3'
 
 services:
+  redis:
+    image: redis
+    container_name: my_redis
+    command: redis-server --requirepass root
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data:/data
   mysql8.0:
     # 镜像名
     image: mysql

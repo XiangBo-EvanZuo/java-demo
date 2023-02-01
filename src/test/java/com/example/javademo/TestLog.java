@@ -1,8 +1,10 @@
 package com.example.javademo;
 
 import com.example.javademo.mybatis.security.jwt.JwtUtil;
+import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -10,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Slf4j
 @SpringBootTest
 public class TestLog {
+    @Autowired
+    RedisService redisService;
     @Test
     public void contextLoads() {
         //日志的级别
@@ -40,4 +44,22 @@ public class TestLog {
         String username = JwtUtil.getUsernameFromToken(token);
         System.out.println(username);
     }
+    @Test
+    public void testRedis() {
+        redisService.set("test2", "test2", 10L);
+        redisService.set("test3", "test3", 1000L);
+    }
+    @Test
+    public void testGetRedis() {
+        String value = (String) redisService.get("test2");
+        System.out.println("value " + value);
+    }
+    @Test
+    public void testDelRedis() {
+        redisService.remove("test2");
+        String value = (String) redisService.get("test2");
+        System.out.println("value " + value);
+    }
+
+
 }
