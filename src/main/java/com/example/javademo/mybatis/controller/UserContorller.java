@@ -21,7 +21,8 @@ public class UserContorller {
     @Autowired
     UserServiceImpl userService;
 
-    @RequestMapping("/login")
+    // login代理了
+//    @RequestMapping("/login")
     public LoginVo findListItem(HttpServletRequest request, @RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
         queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());

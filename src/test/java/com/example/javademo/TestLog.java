@@ -1,8 +1,11 @@
 package com.example.javademo;
 
+import com.example.javademo.mybatis.security.jwt.JwtUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Slf4j
 @SpringBootTest
@@ -19,5 +22,22 @@ public class TestLog {
         log.info("这是info日志...");
         log.warn("这是warn日志...");
         log.error("这是error日志...");
+    }
+
+    @Test
+    public void test() {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String password = passwordEncoder.encode("123");
+        log.info(password);
+        System.out.println(password);
+        boolean matcher = passwordEncoder.matches("123", "$2a$10$xQ7YJylbYb3a51n.Hcb61.cjeHXXf7H5cJBpqoIeD3zh61/OcD/FO");
+        System.out.println(matcher);
+    }
+    @Test
+    public void testJwt() {
+        String token = JwtUtil.createToken("test22222");
+        System.out.println(token);
+        String username = JwtUtil.getUsernameFromToken(token);
+        System.out.println(username);
     }
 }

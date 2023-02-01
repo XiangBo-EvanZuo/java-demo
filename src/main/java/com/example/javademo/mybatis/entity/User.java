@@ -6,12 +6,15 @@ import com.example.javademo.mybatis.common.Validators.CustomValidators.CaseUpper
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Update;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotEmpty;
-import java.io.Serializable;
+import java.util.Collection;
 
 /**
  * 管理员用户
@@ -19,8 +22,9 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @JsonIgnoreProperties(allowSetters = true, value = {"pwd"})
-public class User implements Serializable {
+public class User implements UserDetails {
     Long id;
     @CaseUpper(message = "用户名必须大写", groups = {Save.class})
     String username;
@@ -37,5 +41,28 @@ public class User implements Serializable {
     @Version
     Integer version;
     String avatarUrl;
+
+    @TableField(exist = false)
+    private boolean isEnabled = true;
+    @TableField(exist = false)
+    public boolean isCredentialsNonExpired = true;
+    @TableField(exist = false)
+    public boolean isAccountNonExpired = true;
+    @TableField(exist = false)
+    public boolean isAccountNonLocked = true;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return mobile;
+    }
+    @Override
+    public String getPassword() {
+        return pwd;
+    }
 }
 

@@ -10,22 +10,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// AOP 暂时取消了
 @Component
 public class RequestInterceportor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws NotLogin {
 //        log.info("MyInterceptor.preHandle()");
-        User currentUser = null;
-        HttpSession session = request.getSession();
-        if(session != null){
-            currentUser = (User)session.getAttribute("user");
-        }
-        System.out.println(currentUser);
-        if(currentUser == null){
-            // 说明用户未登录
-            System.out.println("not login");
-            throw new NotLogin();
-        }
+//        User currentUser = null;
+//        HttpSession session = request.getSession();
+//        if(session != null){
+//            currentUser = (User)session.getAttribute("user");
+//        }
+//        System.out.println(currentUser);
+//        if(currentUser == null){
+//            // 说明用户未登录
+//            System.out.println("not login");
+//            throw new NotLogin();
+//        }
         return true;
     }
 
