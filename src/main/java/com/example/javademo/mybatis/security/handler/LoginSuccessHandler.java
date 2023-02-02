@@ -27,7 +27,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         PrintWriter out = response.getWriter();
         User user = (User) authentication.getPrincipal();
         String token = JwtUtil.createToken(user.getUsername());
-        redisService.set("token_" + token, token, 60L);
+        redisService.set("token_" + user.getUsername(), token, 60L);
         LoginSuccessVo loginSuccessVo = new LoginSuccessVo();
         loginSuccessVo.setId(user.getId());
         loginSuccessVo.setToken(token);

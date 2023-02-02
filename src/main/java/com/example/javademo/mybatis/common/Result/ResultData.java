@@ -1,6 +1,10 @@
 package com.example.javademo.mybatis.common.Result;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Data
 public class ResultData<T> {
@@ -8,10 +12,10 @@ public class ResultData<T> {
     private int code;
     private String message;
     private T data;
-    private long timestamp ;
+    private String timestamp ;
 
     public ResultData (){
-        this.timestamp = System.currentTimeMillis();
+        this.timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
     }
 
     public static <t> ResultData<t> success(t data) {

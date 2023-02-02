@@ -7,49 +7,27 @@ import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
+import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserContorller {
     @Autowired
     UserServiceImpl userService;
-
-    // login代理了
-//    @RequestMapping("/login")
-    public LoginVo findListItem(HttpServletRequest request, @RequestBody @Validated({Save.class}) User user) throws PassWordError {
-        QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq(!StringUtils.isEmpty(user.getMobile()), "mobile", user.getMobile());
-        User res = userService.getOne(queryWrapper);
-        String resJSON = JSON.toJSONString(res, true);
-        System.out.println(resJSON);
-        LoginVo loginRes = new LoginVo();
-        if (res == null) {
-            // 用户不存在
-            throw new NotUser();
-        } else {
-            System.out.println("res:" + res.getPwd());
-            System.out.println("user:" + user.getPwd());
-            System.out.println("getMobile:" + user.getMobile());
-            System.out.println("isEmpty:" + StringUtils.isEmpty(user.getMobile()));
-            if (res.getPwd().equals(user.getPwd())) {
-                loginRes.setResult(true);
-                loginRes.setMessage("登陆成功!");
-                loginRes.setData(res);
-            } else {
-                throw new PassWordErrorParent();
-            }
-        }
-        //这里有一个最最重要的步骤 把当前用户对象放入session当中,这样才能返回JSESSIONID给前端
-        request.getSession().setAttribute("user", res);
-        return loginRes;
-    }
+    @Autowired
+    RedisService redisService;
     @RequestMapping("/reset")
     public LoginVo comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -67,14 +45,20 @@ public class UserContorller {
         return loginRes;
     }
     @RequestMapping("/logout")
-    public LoginVo logout(HttpServletRequest request) throws PassWordError {
-        User attribute = (User) request.getSession().getAttribute("user");
-        if (attribute != null) {
-            request.getSession().removeAttribute("user");
-        }
+    public LoginVo logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         LoginVo vo = new LoginVo();
-        vo.setResult(true);
-        vo.setMessage("logout");
+        if (authentication == null) {
+            vo.setResult(true);
+            vo.setMessage("logout ready authentication not exist");
+        } else {
+            User user = (User) authentication.getPrincipal();
+            System.out.println(JSON.toJSONString(user));
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            redisService.remove("token_" + user.getUsername());
+            vo.setResult(true);
+            vo.setMessage("logout");
+        }
         return vo;
     }
 

@@ -40,12 +40,20 @@ public class TokenFilter extends OncePerRequestFilter {
                         // 在上下文对象中，储存当前用户信息直接需要验证一下token对不对，然后再取出username
                         // 1. 获取请求头的token
                         String token = request.getHeader("Authentication");
+
                         // 2 判断当前用户的token是否存在
                         if (StringUtils.isEmpty(token)) {
                             throw new CustomAuthenticationException("111");
                         }
+
+                        // 5 通过token拿到username
+                        String originUsername = JwtUtil.getUsernameFromToken(token);
+
+                        if (StringUtils.isEmpty(originUsername)) {
+                            throw new CustomAuthenticationException("444");
+                        }
                         // 3 判断token是否过期
-                        String targetToken = "token_" + token;
+                        String targetToken = "token_" + originUsername;
                         String rightToken = (String)redisService.get(targetToken);
                         if (StringUtils.isEmpty(rightToken)) {
                             throw new CustomAuthenticationException("222");
@@ -55,12 +63,6 @@ public class TokenFilter extends OncePerRequestFilter {
                         if (!rightToken.equals(token)) {
                             throw new CustomAuthenticationException("333");
                         }
-                        // 5 通过token拿到username
-                    String originUsername = JwtUtil.getUsernameFromToken(rightToken);
-
-                    if (StringUtils.isEmpty(originUsername)) {
-                        throw new CustomAuthenticationException("444");
-                    }
                     // 1. 创建身份认证对象
                     UserDetails userDetails = customUserService.loadUserByUsername(originUsername);
                     System.out.println(userDetails);
