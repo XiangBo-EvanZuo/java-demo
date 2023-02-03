@@ -51,7 +51,7 @@ public class SpringSecurtyConfig extends WebSecurityConfigurerAdapter {
         // 所有的请求都拦截
         .and().authorizeRequests()
         // 屏蔽的请求
-        .antMatchers("/user/login").permitAll()
+        .antMatchers("/user/login", "/user/logout", "/user/register", "/user/reset").permitAll()
         // 其他请求都需要验证
         .anyRequest().authenticated()
         .and().exceptionHandling()

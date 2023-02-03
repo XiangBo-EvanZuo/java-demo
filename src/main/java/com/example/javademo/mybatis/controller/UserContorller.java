@@ -52,14 +52,25 @@ public class UserContorller {
             vo.setResult(true);
             vo.setMessage("logout ready authentication not exist");
         } else {
-            User user = (User) authentication.getPrincipal();
-            System.out.println(JSON.toJSONString(user));
-            new SecurityContextLogoutHandler().logout(request, response, authentication);
-            redisService.remove("token_" + user.getUsername());
-            vo.setResult(true);
-            vo.setMessage("logout");
+            Object obj = authentication.getPrincipal();
+            if (obj instanceof String) {
+                vo.setResult(true);
+                vo.setMessage("logout anonymousUser");
+            } else if (obj instanceof User) {
+                User user = (User) authentication.getPrincipal();
+                new SecurityContextLogoutHandler().logout(request, response, authentication);
+                redisService.remove("token_" + user.getUsername());
+                vo.setResult(true);
+                vo.setMessage("logout");
+            }
         }
         return vo;
+    }
+
+    @RequestMapping("/getInfo")
+    public void getInfo(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(JSON.toJSONString(authentication.getPrincipal()));
     }
 
     @RequestMapping("error")

@@ -2,6 +2,7 @@ package com.example.javademo.mybatis.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.example.javademo.mybatis.Vo.LoginSuccessVo;
+import com.example.javademo.mybatis.Vo.LoginUserVo;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.security.jwt.JwtUtil;
@@ -29,7 +30,11 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String token = JwtUtil.createToken(user.getUsername());
         redisService.set("token_" + user.getUsername(), token, 60L);
         LoginSuccessVo loginSuccessVo = new LoginSuccessVo();
-        loginSuccessVo.setId(user.getId());
+        LoginUserVo loginUserVo = new LoginUserVo();
+        loginUserVo.setUsername(user.getUsername());
+        loginUserVo.setId(user.getId());
+        loginUserVo.setAvatarUrl(user.getAvatarUrl());
+        loginSuccessVo.setUser(loginUserVo);
         loginSuccessVo.setToken(token);
         out.write(JSON.toJSONString(ResultData.success(loginSuccessVo)));
         out.flush();

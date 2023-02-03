@@ -8,6 +8,8 @@ public enum ReturnCode {
     ValidateParams(3, "参数校验失败"),
     NORMAL_ERROR_ENUM(5, "不支持的认证模式"),
     NotUser(6, "用户不存在"),
+    NoToken(8, "no token"),
+//    NoToken(8, "no token"),
     UNSUPPORTED_GRANT_TYPE(7, "不支持的认证模式");
     private final int code;
     /**

@@ -2,6 +2,7 @@ package com.example.javademo.mybatis.security.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.example.javademo.mybatis.common.Result.ResultData;
+import com.example.javademo.mybatis.common.Result.ReturnCode;
 import com.example.javademo.mybatis.security.Exception.CustomAuthenticationException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
@@ -20,18 +21,16 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         ResultData resultData = null;
-        System.out.println("eeeeeeeee");
-        System.out.println(exception.getMessage());
         if (exception instanceof BadCredentialsException) {
-            resultData = ResultData.fail(500, "BadCredentialsException");
+            resultData = ResultData.fail(ReturnCode.PassWordError.getCode(), ReturnCode.PassWordError.getMessage());
         } else if (exception instanceof UsernameNotFoundException) {
-            resultData = ResultData.fail(500, exception.getMessage());
+            resultData = ResultData.fail(ReturnCode.NotLogin.getCode(), exception.getMessage());
         } else if (exception instanceof CustomAuthenticationException) {
-            resultData = ResultData.fail(500, "CustomAuthenticationException" + exception.getMessage());
+            resultData = ResultData.fail(ReturnCode.NotLogin.getCode(), exception.getMessage());
         } else if (exception instanceof AuthenticationException) {
-            resultData = ResultData.fail(500, "AuthenticationException");
+            resultData = ResultData.fail(ReturnCode.NotLogin.getCode(), "AuthenticationException " + exception.getMessage());
         } else {
-            resultData = ResultData.fail(500, "未知的auth错误");
+            resultData = ResultData.fail(ReturnCode.NotLogin.getCode(), "未知的auth错误 " + exception.getMessage());
         }
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();

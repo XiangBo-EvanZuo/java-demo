@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class LoginSuccessVo {
     String token;
-    Long id;
+    LoginUserVo user;
 }
