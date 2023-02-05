@@ -2,6 +2,7 @@ package com.example.javademo.mybatis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.javademo.mybatis.Vo.IntroduceVo;
 import com.example.javademo.mybatis.common.Exceptions.*;
 import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
@@ -10,6 +11,7 @@ import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -67,15 +69,23 @@ public class UserContorller {
         return vo;
     }
 
+    @PreAuthorize("hasAuthority('user:list') AND hasRole('admin')")
     @RequestMapping("/getInfo")
-    public void getInfo(HttpServletRequest request, HttpServletResponse response) {
+    public User getInfo(HttpServletRequest request, HttpServletResponse response) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(JSON.toJSONString(authentication.getPrincipal()));
+        return (User) authentication.getPrincipal();
     }
 
     @RequestMapping("error")
     public void errorLogin () throws NormalError {
         throw new NormalError();
+    }
+    @RequestMapping("introduce")
+    public IntroduceVo introduce () {
+        IntroduceVo introduceVo = new IntroduceVo();
+        introduceVo.setValue("introduce");
+        return introduceVo;
     }
 
     @RequestMapping("register")

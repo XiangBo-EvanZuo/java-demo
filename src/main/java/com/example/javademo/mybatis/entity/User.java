@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotEmpty;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * 管理员用户
@@ -50,12 +50,8 @@ public class User implements UserDetails {
     public boolean isAccountNonExpired = true;
     @TableField(exist = false)
     public boolean isAccountNonLocked = true;
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
+    @TableField(exist = false)
+    public List<GrantedAuthority> authorities;
     @Override
     public String getUsername() {
         return mobile;

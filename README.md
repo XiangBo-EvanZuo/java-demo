@@ -30,10 +30,14 @@
 - table表名称统一前缀设置prefix
 - 逻辑删除
 - 乐观锁-拦截器
-- session 统一拦截session
+- session 统一拦截session（single-model-session分支下）
 - 序列化与反序列化的字段过滤
 - 
 
 # 开发效率
 - Yaml的提示
 - 高亮log
+
+# branch说明
+- single-model-session
+- 

@@ -8,6 +8,8 @@ import com.example.javademo.mybatis.security.jwt.JwtUtil;
 import com.example.javademo.mybatis.security.service.CustomUserService;
 import com.example.javademo.mybatis.utils.redis.ConfigRedis;
 import com.example.javademo.mybatis.utils.redis.RedisService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -28,14 +30,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Component
+@RequiredArgsConstructor
 public class TokenFilter extends OncePerRequestFilter {
-    @Autowired
-    CustomUserService customUserService;
-    @Autowired
-    LoginFailHandler loginFailHandler;
-    @Autowired
-    RedisService redisService;
+    private final CustomUserService customUserService;
+    private final LoginFailHandler loginFailHandler;
+    private final RedisService redisService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {

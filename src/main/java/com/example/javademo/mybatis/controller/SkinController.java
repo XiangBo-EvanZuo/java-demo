@@ -24,6 +24,7 @@ import com.example.javademo.mybatis.Vo.QuerySkinVo;
 import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@PreAuthorize("hasAuthority('user:list') AND hasRole('admin')")
 @RequestMapping("/skin")
 public class SkinController {
 

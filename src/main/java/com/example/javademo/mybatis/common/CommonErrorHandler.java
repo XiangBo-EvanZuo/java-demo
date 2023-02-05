@@ -5,6 +5,7 @@ import com.example.javademo.mybatis.common.Exceptions.NotUser;
 import com.example.javademo.mybatis.common.Exceptions.PassWordError;
 import com.example.javademo.mybatis.common.Result.ResultData;
 import com.example.javademo.mybatis.common.Result.ReturnCode;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -34,6 +35,12 @@ public class CommonErrorHandler {
     public ResultData otherErrors(RuntimeException error) {
         System.out.println(error.toString());
         return ResultData.fail(ReturnCode.UNSUPPORTED_GRANT_TYPE.getCode(), error.getMessage());
+    }
+
+    @ExceptionHandler({AccessDeniedException.class})
+    public ResultData accessDeniedException(RuntimeException error) {
+        System.out.println(error.toString());
+        return ResultData.fail(ReturnCode.NoAuth.getCode(), ReturnCode.NoAuth.getMessage());
     }
 
     /**

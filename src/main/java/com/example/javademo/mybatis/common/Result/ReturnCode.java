@@ -9,6 +9,7 @@ public enum ReturnCode {
     NORMAL_ERROR_ENUM(5, "不支持的认证模式"),
     NotUser(6, "用户不存在"),
     NoToken(8, "no token"),
+    NoAuth(402, "权限不足，请联系管理员"),
 //    NoToken(8, "no token"),
     UNSUPPORTED_GRANT_TYPE(7, "不支持的认证模式");
     private final int code;
