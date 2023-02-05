@@ -80,7 +80,7 @@ public class SpringSecurtyConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         // 不走过滤器链路
-        web.ignoring().antMatchers("/user/introduce", "/user/logout");
+        web.ignoring().antMatchers("/user/introduce");
     }
 
     // @xiangbo todo 自定义provider

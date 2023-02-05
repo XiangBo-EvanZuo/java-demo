@@ -8,6 +8,7 @@ import com.example.javademo.mybatis.security.jwt.JwtUtil;
 import com.example.javademo.mybatis.security.service.CustomUserService;
 import com.example.javademo.mybatis.utils.redis.ConfigRedis;
 import com.example.javademo.mybatis.utils.redis.RedisService;
+import io.jsonwebtoken.ExpiredJwtException;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +90,8 @@ public class TokenFilter extends OncePerRequestFilter {
                         // 报错等于登陆失败
                         loginFailHandler.onAuthenticationFailure(request, response, e);
                     }
+                } catch (ExpiredJwtException e) {
+                    doFilter(request, response, filterChain);
                 }
             } else {
                 // spring-security的上下文context存储了正确的用户信息后，才可以通过过滤器
