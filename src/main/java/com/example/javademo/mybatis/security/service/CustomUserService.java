@@ -2,7 +2,9 @@ package com.example.javademo.mybatis.security.service;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.javademo.mybatis.entity.Menu;
 import com.example.javademo.mybatis.entity.User;
+import com.example.javademo.mybatis.service.impl.MenuServiceImpl;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +22,10 @@ import java.util.stream.Collectors;
 public class CustomUserService implements UserDetailsService {
     @Autowired
     UserServiceImpl userService;
+
+    @Autowired
+    MenuServiceImpl menuService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -39,6 +45,8 @@ public class CustomUserService implements UserDetailsService {
         if (username.equals("test-admin")) {
             roles.add("admin");
         }
+        List<Menu> menuList = menuService.getUserMenuList(user.getId());
+        user.setMenuList(menuList);
         List<String> permissions = new ArrayList<>();
         permissions.add("user:list");
 

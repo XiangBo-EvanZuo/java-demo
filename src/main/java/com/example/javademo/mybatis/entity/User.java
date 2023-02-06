@@ -47,6 +47,8 @@ public class User implements UserDetails {
     public boolean accountNonLocked = true;
     @TableField(exist = false)
     public List<GrantedAuthority> authorities;
+    @TableField(exist = false)
+    List<Menu> menuList;
     @Override
     public String getUsername() {
         return mobile;

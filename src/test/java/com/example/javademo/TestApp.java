@@ -1,5 +1,6 @@
 package com.example.javademo;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,8 +9,10 @@ import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.engine.VelocityTemplateEngine;
 import com.example.javademo.mybatis.common.Exceptions.PassWordError;
+import com.example.javademo.mybatis.entity.Menu;
 import com.example.javademo.mybatis.entity.Skin;
 import com.example.javademo.mybatis.entity.User;
+import com.example.javademo.mybatis.service.impl.MenuServiceImpl;
 import com.example.javademo.mybatis.service.impl.SkinServiceImpl;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -26,6 +29,8 @@ public class TestApp {
     UserServiceImpl userService;
     @Autowired
     SkinServiceImpl skinService;
+    @Autowired
+    MenuServiceImpl menuService;
 
     @Test
     public void test() {
@@ -98,5 +103,13 @@ public class TestApp {
         } catch (Exception error) {
             System.out.println(error.getMessage());
         }
+    }
+    @Test
+    public void testSearch() {
+//        List<Menu> menuList = menuService.list(new  QueryWrapper<>(null));
+//        System.out.println(JSON.toJSONString(menuList));
+        List<Menu> menuList = menuService.getUserMenuList(23L);
+        System.out.println(JSON.toJSONString(menuList));
+
     }
 }
