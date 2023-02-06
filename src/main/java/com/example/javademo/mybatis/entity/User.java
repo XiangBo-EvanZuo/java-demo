@@ -41,15 +41,10 @@ public class User implements UserDetails {
     @Version
     Integer version;
     String avatarUrl;
-
-    @TableField(exist = false)
-    private boolean isEnabled = true;
-    @TableField(exist = false)
-    public boolean isCredentialsNonExpired = true;
-    @TableField(exist = false)
-    public boolean isAccountNonExpired = true;
-    @TableField(exist = false)
-    public boolean isAccountNonLocked = true;
+    private boolean enabled = true;
+    public boolean credentialsNonExpired = true;
+    public boolean accountNonExpired = true;
+    public boolean accountNonLocked = true;
     @TableField(exist = false)
     public List<GrantedAuthority> authorities;
     @Override
