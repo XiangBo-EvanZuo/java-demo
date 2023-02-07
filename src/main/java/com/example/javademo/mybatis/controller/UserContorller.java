@@ -2,7 +2,11 @@ package com.example.javademo.mybatis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.javademo.mybatis.Vo.IntroduceVo;
+import com.example.javademo.mybatis.Vo.PageType;
+import com.example.javademo.mybatis.Vo.QueryUserPageVo;
 import com.example.javademo.mybatis.common.Exceptions.*;
 import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -75,6 +80,23 @@ public class UserContorller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(JSON.toJSONString(authentication.getPrincipal()));
         return (User) authentication.getPrincipal();
+    }
+    @PreAuthorize("hasAuthority('user:list') AND hasRole('admin')")
+    @RequestMapping("/list")
+    public PageType<List<User>> getUserList(@RequestBody QueryUserPageVo queryUserPageVo) {
+        IPage page = new Page(queryUserPageVo.getCurrent(), queryUserPageVo.getPageSize());
+        userService.page(page, null);
+
+        System.out.println(page.getPages());
+        System.out.println(page.getCurrent());
+        System.out.println(page.getRecords());
+        System.out.println();
+        PageType pageType = new PageType();
+        pageType.setData(page.getRecords());
+        pageType.setTotal(page.getTotal());
+        pageType.setCurrent(page.getCurrent());
+        pageType.setSize(page.getSize());
+        return pageType;
     }
 
     @RequestMapping("error")

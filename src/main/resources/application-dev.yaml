@@ -16,6 +16,8 @@ spring:
     password: root
     # Redis 链接超时时间(毫秒)
     timeout: 10000
+    # 过期时间一个小时
+    expireTimeSecond: 3600
     lettuce:
       pool:
         # 连接池最大链接数（负数代表没有限制）

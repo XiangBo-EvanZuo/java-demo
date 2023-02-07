@@ -8,6 +8,7 @@ import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.security.jwt.JwtUtil;
 import com.example.javademo.mybatis.utils.redis.RedisService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -20,6 +21,9 @@ import java.io.PrintWriter;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+    @Value("${spring.redis.expireTimeSecond}")
+    Long expireTimeSecond;
+
     @Autowired
     RedisService redisService;
     @Override
@@ -28,7 +32,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         PrintWriter out = response.getWriter();
         User user = (User) authentication.getPrincipal();
         String token = JwtUtil.createToken(user.getUsername());
-        redisService.set("token_" + user.getUsername(), token, 60L);
+        redisService.set("token_" + user.getUsername(), token, expireTimeSecond);
         LoginSuccessVo loginSuccessVo = new LoginSuccessVo();
         LoginUserVo loginUserVo = new LoginUserVo();
         loginUserVo.setUsername(user.getUsername());

@@ -7,6 +7,7 @@ import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.MenuServiceImpl;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -6,5 +6,5 @@ import lombok.Data;
 public class Menu {
     Integer id;
     String name;
-    String code;
+    String menuCode;
 }
