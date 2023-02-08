@@ -40,7 +40,6 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         loginUserVo.setAvatarUrl(user.getAvatarUrl());
         loginSuccessVo.setUser(loginUserVo);
         loginSuccessVo.setToken(token);
-        loginSuccessVo.setMenuList(user.getMenuList());
         out.write(JSON.toJSONString(ResultData.success(loginSuccessVo)));
         out.flush();
     }

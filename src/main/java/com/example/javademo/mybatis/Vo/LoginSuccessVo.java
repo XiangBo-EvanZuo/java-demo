@@ -9,5 +9,4 @@ import java.util.List;
 public class LoginSuccessVo {
     String token;
     LoginUserVo user;
-    List<Menu> menuList;
 }

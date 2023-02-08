@@ -10,6 +10,7 @@ import com.example.javademo.mybatis.Vo.QueryUserPageVo;
 import com.example.javademo.mybatis.common.Exceptions.*;
 import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
+import com.example.javademo.mybatis.entity.Menu;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import com.example.javademo.mybatis.utils.redis.RedisService;
@@ -80,6 +81,13 @@ public class UserContorller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(JSON.toJSONString(authentication.getPrincipal()));
         return (User) authentication.getPrincipal();
+    }
+    @RequestMapping("/getMenuList")
+    public List<Menu> getMenuList(HttpServletRequest request, HttpServletResponse response) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        System.out.println(JSON.toJSONString(authentication.getPrincipal()));
+        User user = (User) authentication.getPrincipal();
+        return user.getMenuList();
     }
     @PreAuthorize("hasAuthority('user:list') AND hasRole('admin')")
     @RequestMapping("/list")
