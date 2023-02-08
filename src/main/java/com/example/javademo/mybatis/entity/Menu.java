@@ -5,6 +5,8 @@ import lombok.Data;
 @Data
 public class Menu {
     Integer id;
-    String name;
-    String menuCode;
+    String path;
+    String menuPath;
+    String owner;
+    String title;
 }
