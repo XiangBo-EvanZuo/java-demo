@@ -6,7 +6,8 @@ import lombok.Data;
 public class Menu {
     Integer id;
     String path;
-    String menuPath;
-    String owner;
+    Integer parentId;
+    String parentName;
     String title;
+    boolean deleted;
 }
