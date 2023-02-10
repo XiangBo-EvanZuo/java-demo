@@ -10,4 +10,6 @@ public class Menu {
     String parentName;
     String title;
     boolean deleted;
+    Integer order;
+    Integer subHideMenuId;
 }
