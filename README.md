@@ -21,6 +21,24 @@
 - 目录结构
 - log
 - Bear jwt登陆态 （Session Done）
+
+## 权限管理 rbac
+- spring-security（主要是这个重量级框架）
+  - 资源：如按钮、菜单
+  - 角色：用户 
+  - 越权：url（done）
+- shiro（了解）
+## Spring高并发
+- 缓存
+- 分布式缓存Redis
+- 消息中间件
+## 数据库与事务
+- 隔离级别
+- 一张表成功，领一张表失败的复杂业务，需要事务统一处理
+## 微服务
+## 运维系列
+- 打包、部署、监控、日志
+
 - 
 # Done
 - 分页(Done)
@@ -40,4 +58,5 @@
 
 # branch说明
 - single-model-session
-- 
+
+- table表名称统一前缀设置prefix
