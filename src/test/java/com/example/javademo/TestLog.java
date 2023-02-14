@@ -1,6 +1,10 @@
 package com.example.javademo;
 
+import com.alibaba.fastjson.JSON;
+import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.security.jwt.JwtUtil;
+import com.example.javademo.mybatis.service.impl.TestDemo;
+import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -8,12 +12,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.io.IOException;
 
 @Slf4j
 @SpringBootTest
+@EnableTransactionManagement
 public class TestLog {
     @Autowired
     RedisService redisService;
+    @Autowired
+    UserServiceImpl userService;
+    @Autowired
+    TestDemo testDemo;
     @Test
     public void contextLoads() {
         //日志的级别
@@ -39,7 +53,7 @@ public class TestLog {
     }
     @Test
     public void testJwt() {
-        String token = JwtUtil.createToken("test22222");
+        String token = JwtUtil.createToken("123");
         System.out.println(token);
         String username = JwtUtil.getUsernameFromToken(token);
         System.out.println(username);
@@ -61,5 +75,17 @@ public class TestLog {
         System.out.println("value " + value);
     }
 
+    public void service() {
+        User user2 = userService.getById(2);
+        user2.setPwd("888");
+        userService.updateById(user2);
+//        throw new IOException();
+        throw new RuntimeException();
+    }
+    @Test
+    public void testTransaction() {
+        testDemo.demo();
+//        throw new RuntimeException();
+    }
 
 }

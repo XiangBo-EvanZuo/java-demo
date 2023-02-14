@@ -22,7 +22,7 @@ services:
       # root 密码
       MYSQL_ROOT_PASSWORD: root
       # 初始化数据库(后续的初始化sql会在这个库执行)
-      MYSQL_DATABASE: 123456789
+      MYSQL_DATABASE: skin
       # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
       # 映射端口
     ports:

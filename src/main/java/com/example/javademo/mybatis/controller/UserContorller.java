@@ -26,7 +26,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -87,7 +91,13 @@ public class UserContorller {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         System.out.println(JSON.toJSONString(authentication.getPrincipal()));
         User user = (User) authentication.getPrincipal();
-        return user.getMenuList();
+        List<Menu> menuList = user.getMenuList();
+        List<Menu> orderedMenuList = menuList
+                .stream()
+                .sorted((pre, aft) -> pre.getOrder() > aft.getOrder() ? 1 : -1)
+                .collect(Collectors.toList());
+        System.out.println(JSON.toJSONString(orderedMenuList));
+        return orderedMenuList;
     }
     @PreAuthorize("hasAuthority('user:list') AND hasRole('admin')")
     @RequestMapping("/list")
