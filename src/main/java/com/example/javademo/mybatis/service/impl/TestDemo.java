@@ -15,9 +15,9 @@ public class TestDemo {
     @Transactional
     public void demo() {
         User user = userService.getById(1);
-        user.setPwd("1111");
+        user.setUsername("1111");
         userService.updateById(user);
         testDemo2.demo();
-        throw new RuntimeException();
+//        throw new RuntimeException();
     }
 }

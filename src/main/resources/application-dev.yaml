@@ -18,6 +18,8 @@ spring:
     timeout: 10000
     # 过期时间一个小时
     expireTimeSecond: 3600
+    # 缓存时间
+    cache-minute: 1
     lettuce:
       pool:
         # 连接池最大链接数（负数代表没有限制）

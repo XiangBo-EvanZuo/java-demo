@@ -18,12 +18,14 @@ import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.EnableCaching;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
+@EnableCaching
 public class TestApp {
     @Autowired
     UserServiceImpl userService;
@@ -108,7 +110,7 @@ public class TestApp {
     public void testSearch() {
 //        List<Menu> menuList = menuService.list(new  QueryWrapper<>(null));
 //        System.out.println(JSON.toJSONString(menuList));
-        List<Menu> menuList = menuService.getUserMenuList(23L);
+        List<Menu> menuList = menuService.getUserMenuList(1L);
         System.out.println(JSON.toJSONString(menuList));
 
     }

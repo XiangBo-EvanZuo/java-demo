@@ -6,6 +6,7 @@ import com.example.javademo.mybatis.mapper.MenuMapper;
 import com.example.javademo.mybatis.service.IMenuService;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     @Autowired
     MenuMapper mapper;
 
+    @Cacheable(cacheNames = {"single_book"},key = "#root.targetClass+'.'+#root.methodName+'.'+#p0",
+            unless = "#result == null")
     public List<Menu> getUserMenuList(Long userId) {
         return mapper.getUserMenuList(userId);
     }

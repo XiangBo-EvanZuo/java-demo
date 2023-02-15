@@ -5,11 +5,14 @@ import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.security.jwt.JwtUtil;
 import com.example.javademo.mybatis.service.impl.TestDemo;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
+import com.example.javademo.mybatis.utils.bloomfilter.BloomFilterWuPanTest;
 import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -20,6 +23,7 @@ import java.io.IOException;
 
 @Slf4j
 @SpringBootTest
+@EnableCaching
 @EnableTransactionManagement
 public class TestLog {
     @Autowired
@@ -85,7 +89,17 @@ public class TestLog {
     @Test
     public void testTransaction() {
         testDemo.demo();
-//        throw new RuntimeException();
+        throw new RuntimeException();
+    }
+    @Test
+    public void testCache() {
+        User user = userService.getById(2);
+        System.out.println(JSON.toJSONString(user));
+    }
+    // 测试bloomFilter误判测试
+    @Test
+    public void bloomFilterWuPanTest() {
+        BloomFilterWuPanTest.main(new String[]{""});
     }
 
 }
