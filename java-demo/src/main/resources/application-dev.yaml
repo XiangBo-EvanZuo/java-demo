@@ -2,6 +2,10 @@ spring:
   application:
     name: javademo
   profiles: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
   datasource:
     name: defaultDataSource
     url: jdbc:mysql://localhost:3306/skin

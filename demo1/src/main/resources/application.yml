@@ -1,11 +1,24 @@
 spring:
   application:
     name: demo1
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
 server:
   port: 8762
 
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
 
+
+
+ribbon:
+  eager-load:
+    enabled: true
+    clients:
+    - demo2
+    - javademo
