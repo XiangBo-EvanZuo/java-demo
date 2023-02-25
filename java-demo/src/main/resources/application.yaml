@@ -1,9 +1,8 @@
 spring:
   application:
-    name: java-demo
+    name: javademo
   profiles:
     active: dev
-
 logging:
   config: classpath:logback-spring.xml
   level:

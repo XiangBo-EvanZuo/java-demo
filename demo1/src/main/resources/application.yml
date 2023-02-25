@@ -5,7 +5,10 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-
+        cluster-name: Beijing
+        # 是否临时实例
+        # ephemeral: false
+        # namespace: xxxxxx-xxxxx-xxxx
 server:
   port: 8762
 
@@ -14,7 +17,13 @@ server:
 #    service-url:
 #      defaultZone: http://localhost:8761/eureka
 
-
+demo2:
+  ribbon:
+    # 负载均衡策略：默认轮询可以改为集群优先、随机
+    # 随机
+    # NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+    # 集群优先
+    NFLoadBalancerRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
 
 ribbon:
   eager-load:

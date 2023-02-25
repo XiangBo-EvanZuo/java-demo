@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: javademo
+  profiles:
+    active: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848
+        file-extension: yaml
+      discovery:
+        server-addr: localhost:8848
+        cluster-name: Beijing
+        ephemeral: false
+#        namespace: 0b9a221b-baa8-4a3d-8bf8-9f77ab96947a

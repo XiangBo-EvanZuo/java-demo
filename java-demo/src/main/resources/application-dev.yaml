@@ -2,10 +2,10 @@ spring:
   application:
     name: javademo
   profiles: dev
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: localhost:8848
   datasource:
     name: defaultDataSource
     url: jdbc:mysql://localhost:3306/skin
@@ -45,3 +45,6 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
+
+# 不写就报错，妈的。
+name: demo

@@ -1,6 +1,7 @@
 package com.example.javademo.mybatis.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.nacos.api.config.annotation.NacosValue;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -16,6 +17,8 @@ import com.example.javademo.mybatis.service.impl.UserServiceImpl;
 import com.example.javademo.mybatis.utils.redis.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -32,6 +35,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RefreshScope
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -40,6 +44,9 @@ public class UserContorller {
     UserServiceImpl userService;
     @Autowired
     RedisService redisService;
+
+    @Value("${name}")
+    String dateformat;
     @RequestMapping("/reset")
     public LoginVo comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -125,6 +132,8 @@ public class UserContorller {
     public IntroduceVo introduce () {
         IntroduceVo introduceVo = new IntroduceVo();
         introduceVo.setValue("introduce");
+        System.out.println(dateformat);
+        introduceVo.setDate(dateformat);
         return introduceVo;
     }
 
