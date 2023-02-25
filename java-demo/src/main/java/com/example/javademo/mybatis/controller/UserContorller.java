@@ -11,6 +11,7 @@ import com.example.javademo.mybatis.Vo.QueryUserPageVo;
 import com.example.javademo.mybatis.common.Exceptions.*;
 import com.example.javademo.mybatis.Vo.LoginVo;
 import com.example.javademo.mybatis.common.Validators.Interfaces.Save;
+import com.example.javademo.mybatis.config.EnvVariblesInject;
 import com.example.javademo.mybatis.entity.Menu;
 import com.example.javademo.mybatis.entity.User;
 import com.example.javademo.mybatis.service.impl.UserServiceImpl;
@@ -35,18 +36,22 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RefreshScope
 @Slf4j
 @RestController
 @RequestMapping("/user")
+//@RefreshScope
 public class UserContorller {
     @Autowired
     UserServiceImpl userService;
     @Autowired
     RedisService redisService;
 
-    @Value("${name}")
-    String dateformat;
+//    @Value("${name}")
+//    String dateformat;
+
+    @Autowired
+    EnvVariblesInject envVariblesInject;
+
     @RequestMapping("/reset")
     public LoginVo comfirmResetPassword(@RequestBody @Validated({Save.class}) User user) throws PassWordError {
         QueryWrapper queryWrapper = new QueryWrapper();
@@ -132,8 +137,8 @@ public class UserContorller {
     public IntroduceVo introduce () {
         IntroduceVo introduceVo = new IntroduceVo();
         introduceVo.setValue("introduce");
-        System.out.println(dateformat);
-        introduceVo.setDate(dateformat);
+        System.out.println(envVariblesInject.getName());
+        introduceVo.setDate(envVariblesInject.getName());
         return introduceVo;
     }
 

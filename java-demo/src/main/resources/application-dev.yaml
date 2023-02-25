@@ -40,11 +40,7 @@ server:
     session:
       timeout: 60 # session超时时间为60秒
 
-
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka
-
-# 不写就报错，妈的。
-name: demo
