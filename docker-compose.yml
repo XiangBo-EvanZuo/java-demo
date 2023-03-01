@@ -36,10 +36,8 @@ services:
 #      NACOS_APPLICATION_PORT: 9999
       JVM_XMS: 512m
       JVM_MMS: 320m
-    volumes:
-      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
-      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
-      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
+#    volumes:
+#      - ./docker/nacos/conf:/home/nacos/conf
     ports:
       - "8848:8848"
 
@@ -61,10 +59,8 @@ services:
       #      NACOS_APPLICATION_PORT: 9999
       JVM_XMS: 512m
       JVM_MMS: 320m
-    volumes:
-      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
-      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
-      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
+#    volumes:
+#      - ./docker/nacos/conf:/home/nacos/conf
     ports:
       - "8849:8848"
 
@@ -86,10 +82,8 @@ services:
       #      NACOS_APPLICATION_PORT: 9999
       JVM_XMS: 512m
       JVM_MMS: 320m
-    volumes:
-      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
-      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
-      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
+#    volumes:
+#      - ./docker/nacos/conf:/home/nacos/conf
     ports:
       - "8850:8848"
 #  prometheus:
