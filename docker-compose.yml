@@ -1,49 +1,97 @@
 # 启动命令
 # docker-compose --compatibility up -d
+# docker-compose -f docker-compose.yml up -d
 version: '3'
 
 services:
 # 如果是standalone模式起动，可以不配置外部mysql
 # prometheus、grafana暂时没有启动，以后学习后继续研究
 
-#  mysql5.7:
-#    image: mysql:5.7
-#    container_name: mysql57
-#    restart: always
-#    environment:
-#      MYSQL_ROOT_PASSWORD: root
-#      MYSQL_DATABASE: nacos
+  mysql:
+    image: mysql
+    container_name: mysql-lastest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: nacos-db
 #      MYSQL_USER: root
-#      MYSQL_PASSWORD: root
-#    ports:
-#      - 3306:3306
-#    volumes: # 挂载持久化地址（个人理解）
-#      - ./docker/mysql/:/var/lib/mysql/
-#      - ./docker/conf/:/etc/mysql/
+      MYSQL_PASSWORD: root
+    ports:
+      - 3308:3306
   nacos:
     image: zhusaidong/nacos-server-m1:2.0.3
     container_name: nacos
     restart: always
-#    depends_on:
-#      - mysql5.7
+    depends_on:
+      - mysql
     environment:
       MODE: standalone
-#      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
-#      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
-#      MYSQL_SERVICE_HOST: mysql5.7
-#      MYSQL_SERVICE_DB_NAME: nacos
-#      MYSQL_SERVICE_PORT: 3306
-#      MYSQL_SERVICE_USER: root
-#      MYSQL_SERVICE_PASSWORD: root
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.176.29
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
 #      NACOS_APPLICATION_PORT: 9999
-#      JVM_XMS: 512m
-#      JVM_MMS: 320m
-#    volumes:
-#      - ./docker/nacos/standalone-logs/:/home/nacos/logs
-#      - ./docker/nacos/plugins/:/home/nacos/plugins
-#      - ./docker/nacos/conf/application.properties:/home/nacos/conf/application.properties
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+    volumes:
+      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
+      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
+      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
     ports:
       - "8848:8848"
+
+  nacos2:
+    image: zhusaidong/nacos-server-m1:2.0.3
+    container_name: nacos2
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      MODE: standalone
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.176.29
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      #      NACOS_APPLICATION_PORT: 9999
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+    volumes:
+      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
+      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
+      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
+    ports:
+      - "8849:8848"
+
+  nacos3:
+    image: zhusaidong/nacos-server-m1:2.0.3
+    container_name: nacos3
+    restart: always
+    depends_on:
+      - mysql
+    environment:
+      MODE: standalone
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.176.29
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      #      NACOS_APPLICATION_PORT: 9999
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+    volumes:
+      - ./docker/nacos/standalone-logs/:/Users/wangxiangbo01/nacos/logs/
+      - ./docker/nacos/plugins/:/Users/wangxiangbo01/nacos/plugins/
+      - ./docker/nacos/conf/application.properties:/Users/wangxiangbo01/nacos/conf/application.properties/
+    ports:
+      - "8850:8848"
 #  prometheus:
 #    container_name: prometheus
 #    image: prom/prometheus:latest

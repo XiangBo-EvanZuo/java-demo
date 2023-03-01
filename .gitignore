@@ -37,3 +37,6 @@ build/
 # logs
 /logs
 /*/logs
+
+
+/docker

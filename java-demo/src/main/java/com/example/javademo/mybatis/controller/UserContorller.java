@@ -138,7 +138,7 @@ public class UserContorller {
         IntroduceVo introduceVo = new IntroduceVo();
         introduceVo.setValue("introduce");
         System.out.println(envVariblesInject.getName());
-        introduceVo.setDate(envVariblesInject.getName());
+        introduceVo.setEnvVariblesInject(envVariblesInject);
         return introduceVo;
     }
 
