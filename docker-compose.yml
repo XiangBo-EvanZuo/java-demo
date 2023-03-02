@@ -86,6 +86,17 @@ services:
 #      - ./docker/nacos/conf:/home/nacos/conf
     ports:
       - "8850:8848"
+
+  nacos-nginx:
+    container_name: nacos-nginx
+    image: nginx:1.21.1
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+#      - /home/nacos-nginx/www:/usr/share/nginx
+    ports:
+      - "8845:80"
+#    restart: on-failure
+
 #  prometheus:
 #    container_name: prometheus
 #    image: prom/prometheus:latest

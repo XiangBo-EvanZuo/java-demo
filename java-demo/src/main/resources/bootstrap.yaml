@@ -6,10 +6,13 @@ spring:
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848
+        server-addr: localhost:8845
         file-extension: yaml
       discovery:
-        server-addr: localhost:8848
+        server-addr: localhost:8845
         cluster-name: Beijing
         ephemeral: false
 #        namespace: 0b9a221b-baa8-4a3d-8bf8-9f77ab96947a
+
+
+# http://localhost:8845/nacos/#/configurationManagement?dataId=&group=&appName=&namespace=&pageSize=&pageNo=
