@@ -11,6 +11,8 @@ spring:
         # 是否临时实例
         # ephemeral: false
         # namespace: xxxxxx-xxxxx-xxxx
+
+
 server:
   port: 8762
 
@@ -33,3 +35,18 @@ ribbon:
     clients:
     - demo2
     - javademo
+
+#feign:
+#  client:
+#    config:
+#      default:
+#        loggerLevel: FULL
+
+
+
+logging:
+  level:
+    com:
+      example:
+        demo1:
+          controller: debug
