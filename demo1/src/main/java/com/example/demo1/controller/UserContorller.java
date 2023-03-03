@@ -14,13 +14,19 @@ import java.util.Map;
 public class UserContorller {
     @Autowired
     RestTemplate restTemplate;
+
+    @Autowired
+    IJavaDemoClient javaDemoClient;
+
+    @Autowired
+    IDemo2Client demo2Client;
     @RequestMapping("/introduce")
     public Demo getInfo() {
         String url = "http://demo2/user/introduce";
-        Object res = restTemplate.getForEntity(url, Object.class).getBody();
+        Object res = javaDemoClient.getUserIntroduce();
         System.out.println(res);
         String url2 = "http://javademo/user/introduce";
-        Object res2 = restTemplate.getForEntity(url2, Object.class).getBody();
+        Object res2 = demo2Client.getUserIntroduce();
         System.out.println(res2);
         Demo d = new Demo();
         d.setRes1(res);
