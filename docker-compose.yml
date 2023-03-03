@@ -1,35 +1,116 @@
+# 启动命令
+# docker-compose --compatibility up -d
+# docker-compose -f docker-compose.yml up -d
 version: '3'
 
 services:
-  mysql8.0:
-    # 镜像名
-    image: mysql
-    # 容器名(以后的控制都通过这个)
-    container_name: mysql
-    # 重启策略
+# 如果是standalone模式起动，可以不配置外部mysql
+# prometheus、grafana暂时没有启动，以后学习后继续研究
+
+#  mysql:
+#    image: mysql
+#    container_name: mysql-lastest
+#    restart: always
+#    environment:
+#      MYSQL_ROOT_PASSWORD: root
+#      MYSQL_DATABASE: nacos-db
+##      MYSQL_USER: root
+#      MYSQL_PASSWORD: root
+#    ports:
+#      - 3308:3306
+
+  nacos:
+    image: zhusaidong/nacos-server-m1:2.0.3
+    container_name: nacos
     restart: always
+#    depends_on:
+#      - mysql
     environment:
-      # 时区上海
-      TZ: Asia/Shanghai
-      # root 密码
-      MYSQL_ROOT_PASSWORD: root
-      # 初始化数据库(后续的初始化sql会在这个库执行)
-      MYSQL_DATABASE: 123456789
-      # 初始化用户(不能是root 会报错, 后续需要给新用户赋予权限)
-      # 映射端口
-    ports:
-      - "3306:3306"
+#      MODE: standalone
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.136.67
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      NACOS_APPLICATION_PORT: 8848
+      JVM_XMS: 512m
+      JVM_MMS: 320m
 #    volumes:
-#      # 数据挂载
-#      #- /root/mysql/data/:/var/lib/mysql/
-#      # 配置挂载
-#      #- /root/mysql/conf/:/etc/mysql/conf.d/
-#      # 初始化目录挂载，注意此处我只跑了这个挂载，只是为了说明其他配置不应该数据初始化
-#      - /root/mysql/init/:/docker-entrypoint-initdb.d/
-#    command:
-#      # 将mysql8.0默认密码策略 修改为 原先 策略 (mysql8.0对其默认策略做了更改 会导致密码无法匹配)
-#      --default-authentication-plugin=mysql_native_password
-#      --character-set-server=utf8mb4
-#      --collation-server=utf8mb4_general_ci
-#      --explicit_defaults_for_timestamp=true
-#      --lower_case_table_names=1
+#      - ./docker/nacos/conf:/home/nacos/conf
+    ports:
+      - "8848:8848"
+
+  nacos2:
+    image: zhusaidong/nacos-server-m1:2.0.3
+    container_name: nacos2
+    restart: always
+#    depends_on:
+#      - mysql
+    environment:
+#      MODE: standalone
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.136.67
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      NACOS_APPLICATION_PORT: 8849
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+#    volumes:
+#      - ./docker/nacos/conf:/home/nacos/conf
+    ports:
+      - "8849:8849"
+
+  nacos3:
+    image: zhusaidong/nacos-server-m1:2.0.3
+    container_name: nacos3
+    restart: always
+#    depends_on:
+#      - mysql
+    environment:
+#      MODE: standalone
+      PREFER_HOST_MODE: hostname #如果支持主机名可以使用hostname,否则使用ip，默认也是ip
+      SPRING_DATASOURCE_PLATFORM: mysql #数据源平台 仅支持mysql或不保存empty
+      MYSQL_SERVICE_HOST: 172.24.136.67
+      MYSQL_SERVICE_DB_NAME: nacos-db
+      MYSQL_SERVICE_PORT: 3308
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: root
+      NACOS_APPLICATION_PORT: 8850
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+#    volumes:
+#      - ./docker/nacos/conf:/home/nacos/conf
+    ports:
+      - "8850:8850"
+
+  nacos-nginx:
+    container_name: nacos-nginx
+    image: nginx:1.21.1
+    volumes:
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    #      - /home/nacos-nginx/www:/usr/share/nginx
+    ports:
+      - "8845:80"
+#    restart: on-failure
+
+#  prometheus:
+#    container_name: prometheus
+#    image: prom/prometheus:latest
+#    volumes:
+#      - ./docker/nacos/prometheus/prometheus-standalone.yaml:/etc/prometheus/prometheus.yml
+#    ports:
+#      - "9090:9090"
+#    depends_on:
+#      - nacos
+#    restart: on-failure
+#  grafana:
+#    container_name: grafana
+#    image: grafana/grafana:latest
+#    ports:
+#      - 3000:3000
+#    restart: on-failure

@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: demo2
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+server:
+  port: 8769
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
