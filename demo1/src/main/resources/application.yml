@@ -6,6 +6,8 @@ spring:
       discovery:
         server-addr: localhost:8848
         cluster-name: Beijing
+      config:
+        server-addr: localhost:8848
         # 是否临时实例
         # ephemeral: false
         # namespace: xxxxxx-xxxxx-xxxx
