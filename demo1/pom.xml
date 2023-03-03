@@ -18,6 +18,12 @@
 <!--            <groupId>org.springframework.cloud</groupId>-->
 <!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
 <!--        </dependency>-->
+<!--       fei-api -->
+        <dependency>
+            <groupId>micro.service.demo</groupId>
+            <artifactId>feign-api-mirco-service</artifactId>
+            <version>1.0</version>
+        </dependency>
         <dependency>
             <groupId>io.github.openfeign</groupId>
             <artifactId>feign-httpclient</artifactId>
@@ -48,6 +54,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>micro.service.demo</groupId>
+            <artifactId>feign-api-mirco-service</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

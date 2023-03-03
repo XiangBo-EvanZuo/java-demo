@@ -1,14 +1,13 @@
 package com.example.demo1.controller;
 import lombok.Data;
+import micro.service.demo.clients.IDemo2Client;
+import micro.service.demo.clients.IJavaDemoClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 
 @RestController
@@ -36,7 +35,7 @@ public class UserContorller {
         d.setRes1(res);
         d.setRes2(res2);
         System.out.println(d);
-        log.debug("debug2----------");
+        log.debug("debug2222----------");
         System.out.println("debug aaaaa");
         return d;
     }

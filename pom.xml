@@ -16,6 +16,7 @@
     <module>demo2</module>
     <module>eureka</module>
     <module>java-demo</module>
+    <module>feign-api-mirco-service</module>
   </modules>
   <properties>
     <java.version>1.8</java.version>

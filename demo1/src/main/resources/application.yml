@@ -49,6 +49,11 @@ logging:
       example:
         demo1:
           controller: debug
+    micro:
+      service:
+        demo:
+          clients: debug
+
 feign:
   httpclient:
     enabled: true

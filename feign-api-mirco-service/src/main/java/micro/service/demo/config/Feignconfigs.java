@@ -1,4 +1,4 @@
-package com.example.demo1.config;
+package micro.service.demo.config;
 
 import feign.Logger;
 import org.springframework.context.annotation.Bean;
