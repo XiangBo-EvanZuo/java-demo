@@ -6,9 +6,9 @@ import org.springframework.web.client.RestTemplate;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/demo2")
 public class UserContorller {
-    @RequestMapping("/introduce")
+    @RequestMapping("/user/introduce")
     public Object getInfo() {
         System.out.println("123");
         return new String("123");

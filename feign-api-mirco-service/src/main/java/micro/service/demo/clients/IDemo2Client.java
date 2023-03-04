@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @FeignClient(value = "demo2", configuration = Feignconfigs.class)
 public interface IDemo2Client {
-    @RequestMapping(value = "/user/introduce", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/demo2/user/introduce", consumes = "application/json", produces = "application/json", method = RequestMethod.POST)
     Object getUserIntroduce();
 }

@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/demo1/user")
 public class UserContorller {
     private final Logger log = LoggerFactory.getLogger(UserContorller.class);
 
@@ -25,10 +25,8 @@ public class UserContorller {
     IDemo2Client demo2Client;
     @RequestMapping("/introduce")
     public Demo getInfo() {
-        String url = "http://demo2/user/introduce";
         Object res = javaDemoClient.getUserIntroduce();
         System.out.println(res);
-        String url2 = "http://javademo/user/introduce";
         Object res2 = demo2Client.getUserIntroduce();
         System.out.println(res2);
         Demo d = new Demo();

@@ -12,6 +12,17 @@ spring:
         # ephemeral: false
         # namespace: xxxxxx-xxxxx-xxxx
 
+    gateway:
+      routes:
+        - id: demo1
+          uri: lb://demo1
+          predicates:
+            - Path=/demo1/**
+
+        - id: demo2
+          uri: lb://demo2
+          predicates:
+            - Path=/demo2/**
 
 server:
   port: 8889
