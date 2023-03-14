@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: demo3
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+  rabbitmq:
+    addresses: localhost:5672
+    username: rabbitmq
+    password: rabbitmq
+    virtual-host: /
+    listener:
+      simple:
+        prefetch: 1
+
+server:
+  port: 8780
+#
+#eureka:
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka
