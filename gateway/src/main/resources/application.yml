@@ -18,12 +18,15 @@ spring:
           uri: lb://demo1
           predicates:
             - Path=/demo1/**
+          filters:
+            - AddRequestHeader=True, ValueDemo1
 
         - id: demo2
           uri: lb://demo2
           predicates:
             - Path=/demo2/**
-
+          filters:
+            - AddRequestHeader=True, ValueDemo2
 server:
   port: 8889
 
