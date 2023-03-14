@@ -9,9 +9,17 @@ import org.springframework.stereotype.Component;
 public class RabbitListenerConfig {
 
     @RabbitListener(queues = "hello")
-    public void rabbitListener(String msg) {
+    public void rabbitListener(String msg) throws InterruptedException {
+        System.out.println("listen1 " + msg);
+        Thread.sleep(20);
+        log.info(msg);
+    }
 
-        System.out.println("listen " + msg);
+    @RabbitListener(queues = "hello")
+    public void rabbitListener2(String msg) throws InterruptedException {
+
+        System.out.println("listen2 " + msg);
+        Thread.sleep(200);
         log.info(msg);
     }
 }

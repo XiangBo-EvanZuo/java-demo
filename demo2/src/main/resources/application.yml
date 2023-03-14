@@ -10,6 +10,10 @@ spring:
     username: rabbitmq
     password: rabbitmq
     virtual-host: /
+    listener:
+      simple:
+        prefetch: 1
+
 server:
   port: 8769
 #

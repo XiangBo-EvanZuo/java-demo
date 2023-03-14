@@ -9,16 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/demo1/rabbitmq")
 class RabbitMQ {
 
+    String queenName = "hello";
+    String queenMessage = "ms";
     @Autowired
     RabbitTemplate rabbitTemplate;
 
     @RequestMapping("/demo")
     public String demo() {
-        String queenName = "hello";
-        String queenMessage = "ms";
-        System.out.println(queenName);
         rabbitTemplate.convertAndSend(queenName, queenMessage);
-        System.out.println("rb");
-        return "success";
+        return "demo success";
+    }
+
+    @RequestMapping("/workQueen")
+    public String workQueen() throws InterruptedException {
+        for (int i = 1; i < 50; i++) {
+            rabbitTemplate.convertAndSend(queenName, queenMessage + '_' + i);
+            Thread.sleep(20);
+        }
+        return "workQueen success";
     }
 }
