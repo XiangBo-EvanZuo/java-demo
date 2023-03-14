@@ -22,4 +22,19 @@ public class RabbitListenerConfig {
         Thread.sleep(200);
         log.info(msg);
     }
+
+    @RabbitListener(queues = "Fanout1.queen1")
+    public void rabbitListenerFanout1(String msg) throws InterruptedException {
+
+        System.out.println("Fanout1.queen1 " + msg);
+        Thread.sleep(200);
+        log.info(msg);
+    }
+
+    @RabbitListener(queues = "Fanout1.queen2")
+    public void rabbitListenerFanout2(String msg) throws InterruptedException {
+        System.out.println("Fanout1.queen2 " + msg);
+        Thread.sleep(200);
+        log.info(msg);
+    }
 }
