@@ -1,5 +1,6 @@
 package com.example.demo1;
 
+import org.springframework.amqp.core.Queue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -13,7 +14,9 @@ import micro.service.demo.clients.IJavaDemoClient;
 @EnableFeignClients(clients = {IDemo2Client.class, IJavaDemoClient.class})
 public class Demo1Application {
     public static void main(String[] args) {
+
         SpringApplication.run(Demo1Application.class, args);
+        System.out.println("no ach=");
     }
 
     @Bean

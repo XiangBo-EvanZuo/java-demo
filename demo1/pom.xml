@@ -20,6 +20,10 @@
 <!--        </dependency>-->
 <!--       fei-api -->
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        <dependency>
             <groupId>micro.service.demo</groupId>
             <artifactId>feign-api-mirco-service</artifactId>
             <version>1.0</version>

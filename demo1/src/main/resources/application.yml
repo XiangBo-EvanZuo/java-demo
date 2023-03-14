@@ -1,6 +1,11 @@
 spring:
   application:
     name: demo1
+  rabbitmq:
+    addresses: localhost:5672
+    username: rabbitmq
+    password: rabbitmq
+    virtual-host: /
   cloud:
     nacos:
       discovery:

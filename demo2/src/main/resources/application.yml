@@ -5,7 +5,11 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
-
+  rabbitmq:
+    addresses: localhost:5672
+    username: rabbitmq
+    password: rabbitmq
+    virtual-host: /
 server:
   port: 8769
 #
