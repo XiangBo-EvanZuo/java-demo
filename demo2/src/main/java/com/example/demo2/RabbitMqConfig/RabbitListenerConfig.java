@@ -1,6 +1,10 @@
 package com.example.demo2.RabbitMqConfig;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.ExchangeTypes;
+import org.springframework.amqp.rabbit.annotation.Exchange;
+import org.springframework.amqp.rabbit.annotation.Queue;
+import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +39,26 @@ public class RabbitListenerConfig {
     public void rabbitListenerFanout2(String msg) throws InterruptedException {
         System.out.println("Fanout1.queen2 " + msg);
         Thread.sleep(200);
+        log.info(msg);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "Direct.queue1"),
+            exchange = @Exchange(name = "DirectExchange", type = ExchangeTypes.DIRECT),
+            key = {"red", "blue"}
+    ))
+    public void rabbitListenerDirectQueen1Consumer1(String msg) {
+        System.out.println("Direct.queen1 " + msg);
+        log.info(msg);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "Direct.queue2"),
+            exchange = @Exchange(name = "DirectExchange", type = ExchangeTypes.DIRECT),
+            key = {"red", "yellow"}
+    ))
+    public void rabbitListenerDirectQueen2Consumer1(String msg) {
+        System.out.println("Direct.queen2 " + msg);
         log.info(msg);
     }
 }
