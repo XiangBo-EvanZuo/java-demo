@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.RestController;
 class RabbitMQPublishSubscribe {
 
     String exchangeName = "Fanout1";
-    String exchangeNameDirect = "DirectExchange";
     String queenMessage = "Fanout1";
     String queenMessageDirect = "DirectExchange msg ";
+    String exchangeNameDirect = "DirectExchange";
+    String queenTopicExchangeName = "TopicExchange";
+    String queenMessageTopic = "TopicExchange msg ";
     @Autowired
     RabbitTemplate rabbitTemplate;
 
@@ -31,6 +33,13 @@ class RabbitMQPublishSubscribe {
     public String direct(@RequestParam("routingKey") String routingKey) {
         log.info(routingKey);
         rabbitTemplate.convertAndSend(exchangeNameDirect, routingKey, queenMessageDirect + routingKey);
+        return "queenMessageDirect success";
+    }
+
+    @RequestMapping("/topic")
+    public String topic(@RequestParam("routingKey") String routingKey) {
+        log.info(routingKey);
+        rabbitTemplate.convertAndSend(queenTopicExchangeName, routingKey, queenMessageTopic + routingKey);
         return "queenMessageDirect success";
     }
 }

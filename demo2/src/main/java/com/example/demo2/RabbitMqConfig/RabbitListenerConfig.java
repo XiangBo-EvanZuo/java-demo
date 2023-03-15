@@ -61,4 +61,24 @@ public class RabbitListenerConfig {
         System.out.println("Direct.queen2 " + msg);
         log.info(msg);
     }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "Topic.queue1"),
+            exchange = @Exchange(name = "TopicExchange", type = ExchangeTypes.TOPIC),
+            key = "china.#"
+    ))
+    public void rabbitListenerTopicQueen1Consumer1(String msg) {
+        System.out.println("Topic.queen1 " + msg);
+        log.info(msg);
+    }
+
+    @RabbitListener(bindings = @QueueBinding(
+            value = @Queue(name = "Topic.queue2"),
+            exchange = @Exchange(name = "TopicExchange", type = ExchangeTypes.TOPIC),
+            key = "#.news"
+    ))
+    public void rabbitListenerTopicQueen2Consumer1(String msg) {
+        System.out.println("Topic.queen2 " + msg);
+        log.info(msg);
+    }
 }
