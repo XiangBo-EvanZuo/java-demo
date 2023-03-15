@@ -8,6 +8,8 @@ import org.springframework.amqp.rabbit.annotation.QueueBinding;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Slf4j
 @Component
 public class RabbitListenerConfig {
@@ -67,9 +69,9 @@ public class RabbitListenerConfig {
             exchange = @Exchange(name = "TopicExchange", type = ExchangeTypes.TOPIC),
             key = "china.#"
     ))
-    public void rabbitListenerTopicQueen1Consumer1(String msg) {
-        System.out.println("Topic.queen1 " + msg);
-        log.info(msg);
+    public void rabbitListenerTopicQueen1Consumer1(Map<String, Object> mapMsg) {
+        System.out.println("Topic.queen1 " + mapMsg);
+        log.info(mapMsg.toString());
     }
 
     @RabbitListener(bindings = @QueueBinding(
@@ -77,8 +79,8 @@ public class RabbitListenerConfig {
             exchange = @Exchange(name = "TopicExchange", type = ExchangeTypes.TOPIC),
             key = "#.news"
     ))
-    public void rabbitListenerTopicQueen2Consumer1(String msg) {
-        System.out.println("Topic.queen2 " + msg);
-        log.info(msg);
+    public void rabbitListenerTopicQueen2Consumer1(Map<String, Object> mapMsg) {
+        System.out.println("Topic.queen2 " + mapMsg);
+        log.info(mapMsg.toString());
     }
 }

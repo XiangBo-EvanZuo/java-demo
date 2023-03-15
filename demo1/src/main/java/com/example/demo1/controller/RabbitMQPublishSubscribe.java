@@ -1,12 +1,17 @@
 package com.example.demo1.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import lombok.var;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -39,7 +44,10 @@ class RabbitMQPublishSubscribe {
     @RequestMapping("/topic")
     public String topic(@RequestParam("routingKey") String routingKey) {
         log.info(routingKey);
-        rabbitTemplate.convertAndSend(queenTopicExchangeName, routingKey, queenMessageTopic + routingKey);
+        var publisherMap = new HashMap<String, Object>();
+        publisherMap.put("routingKey", routingKey);
+        publisherMap.put("queenMessageTopic", queenMessageTopic);
+        rabbitTemplate.convertAndSend(queenTopicExchangeName, routingKey, publisherMap);
         return "queenMessageDirect success";
     }
 }
